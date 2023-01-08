@@ -1,3 +1,74 @@
-main-board {
+/* .main-board {
   border-color: blue;
+} */
+
+.main-board {
+  /* background-image: url(https://wallpapers.com/images/featured/fkq1k1pst35iab2c.jpg);
+  background-size: cover; */
+  display: grid;
+  gap: 1px;
+  grid-template-columns: repeat(3, 1fr);
+  /* height: 50px;
+  width: 50px; */
+  /* background-color: #2ecc71; */
+}
+
+div > div {
+  padding: 100px;
+  border-style: solid;
+  border-color: red;
+}
+
+#P1of9 {
+  background-image: url(https://wallpapers.com/images/featured/fkq1k1pst35iab2c.jpg);
+  background-size: 1064px 620px;
+  background-position: 0px 0px;
+}
+
+#P2of9 {
+  background-image: url(https://wallpapers.com/images/featured/fkq1k1pst35iab2c.jpg);
+  background-size: 1064px 620px;
+  background-position: -354px 0px;
+}
+
+#P3of9 {
+  background-image: url(https://wallpapers.com/images/featured/fkq1k1pst35iab2c.jpg);
+  background-size: 1064px 620px;
+  background-position: -708px 0px;
+}
+
+#P4of9 {
+  background-image: url(https://wallpapers.com/images/featured/fkq1k1pst35iab2c.jpg);
+  background-size: 1064px 620px;
+  background-position: 0px -206px;
+}
+
+#P5of9 {
+  background-image: url(https://wallpapers.com/images/featured/fkq1k1pst35iab2c.jpg);
+  background-size: 1064px 620px;
+  background-position: -354px -206px;
+}
+
+#P6of9 {
+  background-image: url(https://wallpapers.com/images/featured/fkq1k1pst35iab2c.jpg);
+  background-size: 1064px 620px;
+  background-position: -708px -206px;
+}
+
+#P7of9 {
+  background-image: url(https://wallpapers.com/images/featured/fkq1k1pst35iab2c.jpg);
+  background-size: 1064px 620px;
+  background-position: 0px -412px;
+}
+
+#P8of9 {
+  background-image: url(https://wallpapers.com/images/featured/fkq1k1pst35iab2c.jpg);
+  background-size: 1064px 620px;
+  background-position: -354px -412px;
+}
+
+#P9of9 {
+  background-image: url(https://wallpapers.com/images/featured/fkq1k1pst35iab2c.jpg);
+  background-size: 1064px 620px;
+  background-position: -708px -412px;
 }
