@@ -2,6 +2,10 @@
   border-color: blue;
 } */
 
+:root {
+  --sourceImage: url(https://wallpapers.com/images/featured/fkq1k1pst35iab2c.jpg);
+}
+
 .main-board {
   /* background-image: url(https://wallpapers.com/images/featured/fkq1k1pst35iab2c.jpg);
   background-size: cover; 
@@ -25,7 +29,7 @@ div > div {
 }
 
 #P1of9 {
-  background-image: url(https://wallpapers.com/images/featured/fkq1k1pst35iab2c.jpg);
+  background-image: var(--sourceImage);
   background-size: 1064px 620px;
   background-position: 0px 0px;
   position: relative;
@@ -34,7 +38,7 @@ div > div {
 }
 
 #P2of9 {
-  background-image: url(https://wallpapers.com/images/featured/fkq1k1pst35iab2c.jpg);
+  background-image: var(--sourceImage);
   background-size: 1064px 620px;
   background-position: -354px 0px;
   position: relative;
@@ -43,7 +47,7 @@ div > div {
 }
 
 #P3of9 {
-  background-image: url(https://wallpapers.com/images/featured/fkq1k1pst35iab2c.jpg);
+  background-image: var(--sourceImage);
   background-size: 1064px 620px;
   background-position: -708px 0px;
   position: relative;
@@ -52,7 +56,7 @@ div > div {
 }
 
 #P4of9 {
-  background-image: url(https://wallpapers.com/images/featured/fkq1k1pst35iab2c.jpg);
+  background-image: var(--sourceImage);
   background-size: 1064px 620px;
   background-position: 0px -206px;
   position: relative;
@@ -61,7 +65,7 @@ div > div {
 }
 
 #P5of9 {
-  background-image: url(https://wallpapers.com/images/featured/fkq1k1pst35iab2c.jpg);
+  background-image: var(--sourceImage);
   background-size: 1064px 620px;
   background-position: -354px -206px;
   position: relative;
@@ -70,7 +74,7 @@ div > div {
 }
 
 #P6of9 {
-  background-image: url(https://wallpapers.com/images/featured/fkq1k1pst35iab2c.jpg);
+  background-image: var(--sourceImage);
   background-size: 1064px 620px;
   background-position: -708px -206px;
   position: relative;
@@ -79,7 +83,7 @@ div > div {
 }
 
 #P7of9 {
-  background-image: url(https://wallpapers.com/images/featured/fkq1k1pst35iab2c.jpg);
+  background-image: var(--sourceImage);
   background-size: 1064px 620px;
   background-position: 0px -412px;
   position: relative;
@@ -88,7 +92,7 @@ div > div {
 }
 
 #P8of9 {
-  background-image: url(https://wallpapers.com/images/featured/fkq1k1pst35iab2c.jpg);
+  background-image: var(--sourceImage);
   background-size: 1064px 620px;
   background-position: -354px -412px;
   position: relative;
@@ -97,7 +101,7 @@ div > div {
 }
 
 #P9of9 {
-  background-image: url(https://wallpapers.com/images/featured/fkq1k1pst35iab2c.jpg);
+  background-image: var(--sourceImage);
   background-size: 1064px 620px;
   background-position: -708px -412px;
   position: relative;
