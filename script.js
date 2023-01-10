@@ -1,5 +1,7 @@
 var tileBoard = document.getElementById("board");
 var winningPattern = [...tileBoard.children];
+var current = [];
+var winner = [];
 
 function shuffleBoard() {
   //var tileBoard = document.getElementById("board");
@@ -54,12 +56,35 @@ function move(element) {
 }
 
 function checkWinner(arrayToCheck) {
-  console.log(arrayToCheck == winningPattern);
+  //console.log(arrayToCheck == winningPattern);
+
+  win = false;
+
+  for (i = 0; i < arrayToCheck.length; i++) {
+    current.push(arrayToCheck[i]);
+  }
+
+  for (i = 0; i < winningPattern.length; i++) {
+    winner.push(winningPattern[i]);
+  }
+
+  for (i = 0; i < 8; i++) {
+    if (current[i] == winner[i]) {
+      win = true;
+    } else {
+      break;
+    }
+  }
+
+  console.log(win);
   console.log(arrayToCheck);
   console.log(winningPattern);
   if (arrayToCheck == winningPattern) {
     alert("You Win!!!");
   }
+
+  current = [];
+  winner = [];
 }
 
 function cheat() {
