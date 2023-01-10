@@ -3,6 +3,10 @@ var winningPattern = [...tileBoard.children];
 var current = [];
 var winner = [];
 
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
 function shuffleBoard() {
   //var tileBoard = document.getElementById("board");
   var arr = [...tileBoard.children];
@@ -59,6 +63,7 @@ function checkWinner(arrayToCheck) {
   //console.log(arrayToCheck == winningPattern);
 
   win = false;
+  counterCheck = 0;
 
   for (i = 0; i < arrayToCheck.length; i++) {
     current.push(arrayToCheck[i]);
@@ -70,16 +75,14 @@ function checkWinner(arrayToCheck) {
 
   for (i = 0; i < 8; i++) {
     if (current[i] == winner[i]) {
-      win = true;
-    } else {
-      break;
+      counterCheck += 1;
+      if (counterCheck == 8) {
+        win = true;
+      }
     }
   }
 
-  console.log(win);
-  console.log(arrayToCheck);
-  console.log(winningPattern);
-  if (arrayToCheck == winningPattern) {
+  if (win) {
     alert("You Win!!!");
   }
 
