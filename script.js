@@ -1,62 +1,71 @@
-//var finalTile = document.getElementById("P9of9");
-//var tileBoard = document.getElementById("parent");
 var tileBoard = document.getElementById("board");
+var winningPattern = [...tileBoard.children];
 
-function move(element) {
-  var tileToMoveId = element.id;
-  var finalTile = document.getElementById("P9of9");
-  // var tileToMoveIndex = tileBoard.children.id.indexOf(element.id);
+function shuffleBoard() {
+  //var tileBoard = document.getElementById("board");
   var arr = [...tileBoard.children];
-  //var tileToMoveIndex = arr[0];
-  var tileToMoveIndex = arr.indexOf(element);
-  var finalTileIndex = arr.indexOf(finalTile);
-  //var tileToMoveIndex = arr.item("P1of9");
-  //var tileToMove = document.getElementById(tileToMoveId);
-  //var testmoveitem = tileBoard.children[7];
-  //var testswapitem = tileBoard.children[8];
+  let currentIndex = arr.length,
+    randomIndex;
 
-  //   var parent = element.parentNode;
-  //   alert(tileToMove);
-  //   var content = parent.querySelector("div");
-  // var content = parent
-  //   alert(content.id);
-  // tileToMove.style.left = "354px";
-  // tileToMove.style.left = "-354px";
-  // tileToMove.style.top = "206px";
+  // While there remain elements to shuffle.
+  while (currentIndex != 0) {
+    // Pick a remaining element.
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
 
-  //console.log(tileToMoveIndex);
-  //console.log(finalTileIndex);
-
-  console.log(arr);
-
-  arr[tileToMoveIndex] = finalTile;
-
-  arr[finalTileIndex] = element;
+    // And swap it with the current element.
+    [arr[currentIndex], arr[randomIndex]] = [
+      arr[randomIndex],
+      arr[currentIndex],
+    ];
+  }
 
   tileBoard.replaceChildren();
 
   for (const element of arr) {
     tileBoard.append(element);
   }
+}
 
-  //tileBoard.appendChild(arr);
+function move(element) {
+  //var tileBoard = document.getElementById("board");
+  var finalTile = document.getElementById("P9of9");
 
-  //tileBoard.children.push(arr);
+  var arr = [...tileBoard.children];
 
-  //tileBoard.replaceChildren(element, finalTile);
+  var tileToMoveIndex = arr.indexOf(element);
+  var finalTileIndex = arr.indexOf(finalTile);
+  var checkMoveNumber = finalTileIndex - tileToMoveIndex;
+  var validMoves = [1, -1, 3, -3];
+  var isMoveVaild = validMoves.includes(checkMoveNumber);
 
-  //console.log(arr);
+  if (isMoveVaild) {
+    arr[tileToMoveIndex] = finalTile;
+    arr[finalTileIndex] = element;
 
-  //tileBoard.children = arr;
-  //console.log(element.id);
-  //Moves the 1st item immediately infront of the last item
-  //tileBoard.insertBefore(testswapitem, tileBoard.children[7]);
+    tileBoard.replaceChildren();
 
-  //tileBoard.insertAdjacentElement("beforebegin", tileBoard.children[1]);
+    for (const element of arr) {
+      tileBoard.append(element);
+    }
 
-  //tileBoard.children[-1] = testmoveitem;
-  //console.log(tileBoard.children[0]);
-  //tileToMove.style.top = "-206px";
-  //   console.log(tileToMove.style.left = 354);
-  //   console.log(tileToMove.style.top);
+    checkWinner(arr);
+  }
+}
+
+function checkWinner(arrayToCheck) {
+  console.log(arrayToCheck == winningPattern);
+  console.log(arrayToCheck);
+  console.log(winningPattern);
+  if (arrayToCheck == winningPattern) {
+    alert("You Win!!!");
+  }
+}
+
+function cheat() {
+  tileBoard.replaceChildren();
+
+  for (const element of winningPattern) {
+    tileBoard.append(element);
+  }
 }
