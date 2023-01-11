@@ -13,6 +13,6 @@ const add = require("./add");
 //   expect(winningPattern).toNotBe(tileBoard.children);
 // });
 
-test("subtract 2 - 1 to equal 1", () => {
+test("Add 2 + 1 to equal 3", () => {
   expect(add(2, 1)).toBe(3);
 });
