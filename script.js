@@ -3,6 +3,8 @@ var winningPattern = [...tileBoard.children];
 var current = [];
 var winner = [];
 
+//module.exports = tileBoard()
+
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
