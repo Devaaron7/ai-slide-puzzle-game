@@ -3,24 +3,39 @@ var winningPattern = [...tileBoard.children];
 var current = [];
 var winner = [];
 
-//module.exports = tileBoard()
+//module.exports = { tileBoard };
+//module.exports.winningPattern = winningPattern;
 
 //document.body.onload = render();
 
-// render();
+//render();
 
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-// function render() {
-//   //const element = document.createElement(htmlTag);
-//   const e = document.createElement("div");
-//   e.innerHTML = "JavaScript DOM";
-//   document.body.appendChild(e);
-//   var textnode = document.createTextNode("JavaScript DOM");
-//   e.appendChild(textnode);
-// }
+function render() {
+  //const element = document.createElement(htmlTag);
+
+  const rootDiv = document.createElement("div");
+  rootDiv.setAttribute("id", "board");
+
+  var counter = 0;
+  for (i = 0; i < 9; i++) {
+    var childDiv = document.createElement("div");
+    childDiv.setAttribute("id", `P${counter}of9`);
+    rootDiv.appendChild(childDiv);
+  }
+
+  return document.body.appendChild(rootDiv);
+
+  // e.innerHTML = "JavaScript DOM";
+  // document.body.appendChild(e);
+  // var textnode = document.createTextNode("JavaScript DOM");
+  // e.appendChild(textnode);
+}
+
+//module.exports = { render };
 
 function shuffleBoard() {
   //var tileBoard = document.getElementById("board");
