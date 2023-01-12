@@ -5,12 +5,26 @@ var winner = [];
 
 //module.exports = tileBoard()
 
+//document.body.onload = render();
+
+// render();
+
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
+// function render() {
+//   //const element = document.createElement(htmlTag);
+//   const e = document.createElement("div");
+//   e.innerHTML = "JavaScript DOM";
+//   document.body.appendChild(e);
+//   var textnode = document.createTextNode("JavaScript DOM");
+//   e.appendChild(textnode);
+// }
+
 function shuffleBoard() {
   //var tileBoard = document.getElementById("board");
+  var tileBoard = document.getElementById("board");
   var arr = [...tileBoard.children];
   let currentIndex = arr.length,
     randomIndex;
@@ -34,9 +48,10 @@ function shuffleBoard() {
     tileBoard.append(element);
   }
 }
+// module.exports = shuffleBoard;
 
 function move(element) {
-  //var tileBoard = document.getElementById("board");
+  var tileBoard = document.getElementById("board");
   var finalTile = document.getElementById("P9of9");
 
   var arr = [...tileBoard.children];
