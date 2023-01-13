@@ -20,12 +20,16 @@ function render() {
 
 render();
 
-test("Checks that the board was loaded", () => {
-  render();
-  var checkBoard = document.getElementById("board");
-  var checkTile = document.getElementById("P1of9");
-  //console.log(checkBoard.children.length);
-  expect(checkTile.id == "P1of9" && checkBoard.children.length == 9).toBe(true);
+describe("Checks that the board was loaded", () => {
+  test("", () => {
+    render();
+    var checkBoard = document.getElementById("board");
+    var checkTile = document.getElementById("P1of9");
+    //console.log(checkBoard.children.length);
+    expect(checkTile.id == "P1of9" && checkBoard.children.length == 9).toBe(
+      true
+    );
+  });
 });
 
 // test("Checks that the board was shuffled on load", () => {
