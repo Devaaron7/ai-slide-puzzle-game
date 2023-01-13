@@ -29,13 +29,36 @@ describe("Checks that board was shuffled", () => {
 
 describe("Checks that cheat function places board in win position", () => {
   test("", () => {
+    // hack - need to see how the run test without shuffle from
+    // ln 4 of script.js starting
+    methodsToTest.cheat();
     let tileBoard = methodsToTest.render();
+    let patternA = [];
+    let patternB = [];
+    var counterCheck = 0;
+    var isBoardDone = Boolean(false);
     var startPostion = [...tileBoard.getElementById("board").children];
+    for (var i = 0; i < startPostion.length; i++) {
+      patternA.push(startPostion[i]);
+    }
+
     methodsToTest.shuffleBoard();
+
     methodsToTest.cheat();
     var currentPostion = [...tileBoard.getElementById("board").children];
+    for (var i = 0; i < currentPostion.length; i++) {
+      patternB.push(currentPostion[i]);
+    }
 
-    // Test incorrect, needs to be fixed
-    expect(startPostion == currentPostion).toBe(false);
+    for (var i = 0; i < 8; i++) {
+      if (patternA[i] == patternB[i]) {
+        counterCheck += 1;
+        if (counterCheck == 8) {
+          isBoardDone = true;
+        }
+      }
+    }
+
+    expect(isBoardDone).toBe(true);
   });
 });

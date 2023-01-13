@@ -1,3 +1,4 @@
+"use strict";
 const tileBoard = render();
 const winningPattern = [...tileBoard.getElementById("board").children];
 shuffleBoard();
@@ -17,7 +18,7 @@ function render() {
   rootDiv.setAttribute("class", "main-board");
 
   var counter = 1;
-  for (i = 0; i < 9; i++) {
+  for (var i = 0; i < 9; i++) {
     var childDiv = document.createElement("div");
     childDiv.setAttribute("id", `P${counter}of9`);
     childDiv.setAttribute("onclick", "move(this);");
@@ -84,7 +85,7 @@ function checkWinner(arrayToCheck) {
   var current = [];
   var winner = [];
   win = false;
-  counterCheck = 0;
+  var counterCheck = 0;
 
   for (i = 0; i < arrayToCheck.length; i++) {
     current.push(arrayToCheck[i]);
