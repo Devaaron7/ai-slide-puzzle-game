@@ -1,46 +1,37 @@
-var tileBoard = document.getElementById("board");
-var winningPattern = [...tileBoard.children];
-var current = [];
-var winner = [];
+const tileBoard = render();
+const winningPattern = [...tileBoard.getElementById("board").children];
+shuffleBoard();
 
-//module.exports = { tileBoard };
-//module.exports.winningPattern = winningPattern;
-
-//document.body.onload = render();
-
-//render();
-
-function sleep(ms) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
+module.exports = {
+  render,
+  shuffleBoard,
+  move,
+  checkWinner,
+  cheat,
+};
 
 function render() {
-  //const element = document.createElement(htmlTag);
-
+  const section = document.createElement("section");
   const rootDiv = document.createElement("div");
   rootDiv.setAttribute("id", "board");
+  rootDiv.setAttribute("class", "main-board");
 
-  var counter = 0;
+  var counter = 1;
   for (i = 0; i < 9; i++) {
     var childDiv = document.createElement("div");
     childDiv.setAttribute("id", `P${counter}of9`);
+    childDiv.setAttribute("onclick", "move(this);");
     rootDiv.appendChild(childDiv);
+    counter++;
   }
+  document.body.appendChild(section);
+  section.appendChild(rootDiv);
 
-  return document.body.appendChild(rootDiv);
-
-  // e.innerHTML = "JavaScript DOM";
-  // document.body.appendChild(e);
-  // var textnode = document.createTextNode("JavaScript DOM");
-  // e.appendChild(textnode);
+  return document;
 }
 
-//module.exports = { render };
-
 function shuffleBoard() {
-  //var tileBoard = document.getElementById("board");
-  var tileBoard = document.getElementById("board");
-  var arr = [...tileBoard.children];
+  let arr = [...tileBoard.getElementById("board").children];
   let currentIndex = arr.length,
     randomIndex;
 
@@ -57,34 +48,32 @@ function shuffleBoard() {
     ];
   }
 
-  tileBoard.replaceChildren();
+  tileBoard.getElementById("board").replaceChildren();
 
-  for (const element of arr) {
-    tileBoard.append(element);
+  for (const items of arr) {
+    tileBoard.getElementById("board").append(items);
   }
 }
-// module.exports = shuffleBoard;
 
 function move(element) {
-  var tileBoard = document.getElementById("board");
-  var finalTile = document.getElementById("P9of9");
+  let finalTile = tileBoard.getElementById("P9of9");
 
-  var arr = [...tileBoard.children];
+  let arr = [...tileBoard.getElementById("board").children];
 
-  var tileToMoveIndex = arr.indexOf(element);
-  var finalTileIndex = arr.indexOf(finalTile);
-  var checkMoveNumber = finalTileIndex - tileToMoveIndex;
-  var validMoves = [1, -1, 3, -3];
-  var isMoveVaild = validMoves.includes(checkMoveNumber);
+  let tileToMoveIndex = arr.indexOf(element);
+  let finalTileIndex = arr.indexOf(finalTile);
+  let checkMoveNumber = finalTileIndex - tileToMoveIndex;
+  let validMoves = [1, -1, 3, -3];
+  let isMoveVaild = validMoves.includes(checkMoveNumber);
 
   if (isMoveVaild) {
     arr[tileToMoveIndex] = finalTile;
     arr[finalTileIndex] = element;
 
-    tileBoard.replaceChildren();
+    tileBoard.getElementById("board").replaceChildren();
 
     for (const element of arr) {
-      tileBoard.append(element);
+      tileBoard.getElementById("board").append(element);
     }
 
     checkWinner(arr);
@@ -92,8 +81,8 @@ function move(element) {
 }
 
 function checkWinner(arrayToCheck) {
-  //console.log(arrayToCheck == winningPattern);
-
+  var current = [];
+  var winner = [];
   win = false;
   counterCheck = 0;
 
@@ -123,9 +112,9 @@ function checkWinner(arrayToCheck) {
 }
 
 function cheat() {
-  tileBoard.replaceChildren();
+  tileBoard.getElementById("board").replaceChildren();
 
   for (const element of winningPattern) {
-    tileBoard.append(element);
+    tileBoard.getElementById("board").append(element);
   }
 }
