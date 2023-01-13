@@ -23,8 +23,6 @@ describe("Checks that board was shuffled", () => {
     methodsToTest.shuffleBoard();
     var afterShuffle = [...tileBoard.getElementById("board").children];
 
-    console.log(tileBoard);
-
     expect(startPostion == afterShuffle).toBe(false);
   });
 });
@@ -36,10 +34,6 @@ describe("Checks that cheat function places board in win position", () => {
     methodsToTest.shuffleBoard();
     methodsToTest.cheat();
     var currentPostion = [...tileBoard.getElementById("board").children];
-
-    // console.log(tileBoard.getElementById("P1of9"));
-
-    // console.log(currentPostion);
 
     // Test incorrect, needs to be fixed
     expect(startPostion == currentPostion).toBe(false);
