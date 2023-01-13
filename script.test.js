@@ -5,6 +5,7 @@
 function render() {
   const rootDiv = document.createElement("div");
   rootDiv.setAttribute("id", "board");
+  rootDiv.setAttribute("class", "main-board");
 
   var counter = 0;
   for (i = 0; i < 9; i++) {
@@ -17,10 +18,14 @@ function render() {
   return document.body.appendChild(rootDiv);
 }
 
+render();
+
 test("Checks that the board was loaded", () => {
   render();
-  var check = document.getElementById("P1of9");
-  expect(check.id == "P1of9").toBe(true);
+  var checkBoard = document.getElementById("board");
+  var checkTile = document.getElementById("P1of9");
+  //console.log(checkBoard.children.length);
+  expect(checkTile.id == "P1of9" && checkBoard.children.length == 9).toBe(true);
 });
 
 // test("Checks that the board was shuffled on load", () => {
