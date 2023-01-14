@@ -63,10 +63,11 @@ function move(element) {
 
   let tileToMoveIndex = arr.indexOf(element);
   let finalTileIndex = arr.indexOf(finalTile);
+  // Bug - Possible to do invalid move as -1 will allow 4th block to swap with 3rd block. Will revise
   let checkMoveNumber = finalTileIndex - tileToMoveIndex;
   let validMoves = [1, -1, 3, -3];
   let isMoveVaild = validMoves.includes(checkMoveNumber);
-
+  debugger;
   if (isMoveVaild) {
     arr[tileToMoveIndex] = finalTile;
     arr[finalTileIndex] = element;
