@@ -84,18 +84,18 @@ function move(element) {
 function checkWinner(arrayToCheck) {
   var current = [];
   var winner = [];
-  win = false;
+  var win = false;
   var counterCheck = 0;
 
-  for (i = 0; i < arrayToCheck.length; i++) {
+  for (var i = 0; i < arrayToCheck.length; i++) {
     current.push(arrayToCheck[i]);
   }
 
-  for (i = 0; i < winningPattern.length; i++) {
+  for (var i = 0; i < winningPattern.length; i++) {
     winner.push(winningPattern[i]);
   }
 
-  for (i = 0; i < 8; i++) {
+  for (var i = 0; i < 8; i++) {
     if (current[i] == winner[i]) {
       counterCheck += 1;
       if (counterCheck == 8) {
