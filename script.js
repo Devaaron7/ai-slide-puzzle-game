@@ -18,6 +18,7 @@ function render() {
   rootDiv.setAttribute("class", "main-board");
 
   var counter = 1;
+
   for (var i = 0; i < 9; i++) {
     var childDiv = document.createElement("div");
     childDiv.setAttribute("id", `P${counter}of9`);
@@ -61,11 +62,72 @@ function move(element) {
 
   let arr = [...tileBoard.getElementById("board").children];
 
+  let topRowTiles = [arr[0].id, arr[1].id, arr[2].id];
+  let middleRowTiles = [arr[3].id, arr[4].id, arr[5].id];
+  let bottomRowTiles = [arr[6].id, arr[7].id, arr[8].id];
+
+  //console.log(topRowTiles);
   let tileToMoveIndex = arr.indexOf(element);
   let finalTileIndex = arr.indexOf(finalTile);
   // Bug - Possible to do invalid move as -1 will allow 4th block to swap with 3rd block. Will revise
-  let checkMoveNumber = finalTileIndex - tileToMoveIndex;
+  var checkMoveNumber = finalTileIndex - tileToMoveIndex;
+  let isInTopRow = new Boolean(
+    topRowTiles.includes(arr[tileToMoveIndex].id) &&
+      topRowTiles.includes(arr[finalTileIndex].id)
+  );
+
+  let isInMiddleRow = new Boolean(
+    middleRowTiles.includes(arr[tileToMoveIndex].id) &&
+      middleRowTiles.includes(arr[finalTileIndex].id)
+  );
+
+  let isInBottomRow = new Boolean(
+    bottomRowTiles.includes(arr[tileToMoveIndex].id) &&
+      bottomRowTiles.includes(arr[finalTileIndex].id)
+  );
+  debugger;
+  //let cornerTiles = [2, 5, 6];
+  // prettier-ignore
+  // if (checkMoveNumber == -1 || checkMoveNumber == 1) {
+  //   //add a check to confirm tile to swap is in same row
+  //   if (isInTopRow == false) {
+  //     checkMoveNumber = 0;
+  //   } else {
+  //     checkMoveNumber = finalTileIndex - tileToMoveIndex;
+  //   }
+
+  //   if (!isInMiddleRow == false) {
+  //     checkMoveNumber = 0;
+  //   } else {
+  //     checkMoveNumber = finalTileIndex - tileToMoveIndex;
+  //   }
+
+  //   if (!isInBottomRow == false) {
+  //     checkMoveNumber = 0;
+  //   } else {
+  //     checkMoveNumber = finalTileIndex - tileToMoveIndex;
+  //   }
+  // }
+
   let validMoves = [1, -1, 3, -3];
+  if (isInTopRow == false) {
+    if (checkMoveNumber == -1 || checkMoveNumber == 1) {
+      checkMoveNumber = 0;
+    }
+  }
+
+  if (isInMiddleRow == false) {
+    if (checkMoveNumber == -1 || checkMoveNumber == 1) {
+      checkMoveNumber = 0;
+    }
+  }
+
+  if (isInBottomRow == false) {
+    if (checkMoveNumber == -1 || checkMoveNumber == 1) {
+      checkMoveNumber = 0;
+    }
+  }
+
   let isMoveVaild = validMoves.includes(checkMoveNumber);
   debugger;
   if (isMoveVaild) {
