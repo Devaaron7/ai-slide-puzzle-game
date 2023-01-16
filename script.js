@@ -57,6 +57,28 @@ function shuffleBoard() {
   }
 }
 
+function tilesInSameRow(listOfRows, currentTileArray, tileAIndex, tileBIndex) {
+  var answer = null;
+  var results = [];
+  var counter = 0;
+
+  for (var i = 0; i < listOfRows.length; i++) {
+    if (listOfRows[i].includes(currentTileArray[tileAIndex].id)) {
+      counter++;
+    }
+    if (listOfRows[i].includes(currentTileArray[tileBIndex].id)) {
+      counter++;
+    }
+    results.push(counter);
+    counter = 0;
+  }
+
+  if (results.includes(2)) {
+    answer = true;
+  }
+  return answer;
+}
+
 function move(element) {
   let finalTile = tileBoard.getElementById("P9of9");
 
@@ -65,78 +87,21 @@ function move(element) {
   let topRowTiles = [arr[0].id, arr[1].id, arr[2].id];
   let middleRowTiles = [arr[3].id, arr[4].id, arr[5].id];
   let bottomRowTiles = [arr[6].id, arr[7].id, arr[8].id];
+  var allRows = [topRowTiles, middleRowTiles, bottomRowTiles];
 
-  //console.log(topRowTiles);
   let tileToMoveIndex = arr.indexOf(element);
   let finalTileIndex = arr.indexOf(finalTile);
-  // Bug - Possible to do invalid move as -1 will allow 4th block to swap with 3rd block. Will revise
+
   let checkMoveNumber = finalTileIndex - tileToMoveIndex;
-  let isInTopRow = new Boolean(
-    topRowTiles.includes(arr[tileToMoveIndex].id) &&
-      topRowTiles.includes(arr[finalTileIndex].id)
-  );
 
-  let isInMiddleRow = new Boolean(
-    middleRowTiles.includes(arr[tileToMoveIndex].id) &&
-      middleRowTiles.includes(arr[finalTileIndex].id)
-  );
-
-  let isInBottomRow = new Boolean(
-    bottomRowTiles.includes(arr[tileToMoveIndex].id) &&
-      bottomRowTiles.includes(arr[finalTileIndex].id)
-  );
-  //debugger;
-  //let cornerTiles = [2, 5, 6];
-  // prettier-ignore
-  // if (checkMoveNumber == -1 || checkMoveNumber == 1) {
-  //   //add a check to confirm tile to swap is in same row
-  //   if (isInTopRow == false) {
-  //     checkMoveNumber = 0;
-  //   } else {
-  //     checkMoveNumber = finalTileIndex - tileToMoveIndex;
-  //   }
-
-  //   if (!isInMiddleRow == false) {
-  //     checkMoveNumber = 0;
-  //   } else {
-  //     checkMoveNumber = finalTileIndex - tileToMoveIndex;
-  //   }
-
-  //   if (!isInBottomRow == false) {
-  //     checkMoveNumber = 0;
-  //   } else {
-  //     checkMoveNumber = finalTileIndex - tileToMoveIndex;
-  //   }
-  // }
+  if (!tilesInSameRow(allRows, arr, tileToMoveIndex, finalTileIndex)) {
+    if (checkMoveNumber == -1 || checkMoveNumber == 1) {
+      checkMoveNumber = 0;
+    }
+  }
 
   let validMoves = [1, -1, 3, -3];
 
-  // if (checkMoveNumber == -1 || checkMoveNumber == 1) {
-  //   if (isInTopRow) {
-  //     checkMoveNumber = finalTileIndex - tileToMoveIndex;
-  //   } else {
-  //     checkMoveNumber = 0;
-  //   }
-  // }
-  // debugger;
-  // if (checkMoveNumber == -1 || checkMoveNumber == 1) {
-  //   if (isInMiddleRow) {
-  //     checkMoveNumber = finalTileIndex - tileToMoveIndex;
-  //   } else {
-  //     checkMoveNumber = 0;
-  //   }
-  // }
-
-  // debugger;
-  // if (checkMoveNumber == -1 || checkMoveNumber == 1) {
-  //   if (isInBottomRow) {
-  //     checkMoveNumber = finalTileIndex - tileToMoveIndex;
-  //   } else {
-  //     checkMoveNumber = 0;
-  //   }
-  // }
-
-  // debugger;
   let isMoveVaild = validMoves.includes(checkMoveNumber);
 
   if (isMoveVaild) {
