@@ -70,7 +70,7 @@ function move(element) {
   let tileToMoveIndex = arr.indexOf(element);
   let finalTileIndex = arr.indexOf(finalTile);
   // Bug - Possible to do invalid move as -1 will allow 4th block to swap with 3rd block. Will revise
-  var checkMoveNumber = finalTileIndex - tileToMoveIndex;
+  let checkMoveNumber = finalTileIndex - tileToMoveIndex;
   let isInTopRow = new Boolean(
     topRowTiles.includes(arr[tileToMoveIndex].id) &&
       topRowTiles.includes(arr[finalTileIndex].id)
@@ -85,7 +85,7 @@ function move(element) {
     bottomRowTiles.includes(arr[tileToMoveIndex].id) &&
       bottomRowTiles.includes(arr[finalTileIndex].id)
   );
-  debugger;
+  //debugger;
   //let cornerTiles = [2, 5, 6];
   // prettier-ignore
   // if (checkMoveNumber == -1 || checkMoveNumber == 1) {
@@ -110,26 +110,35 @@ function move(element) {
   // }
 
   let validMoves = [1, -1, 3, -3];
-  if (isInTopRow == false) {
-    if (checkMoveNumber == -1 || checkMoveNumber == 1) {
-      checkMoveNumber = 0;
-    }
-  }
 
-  if (isInMiddleRow == false) {
-    if (checkMoveNumber == -1 || checkMoveNumber == 1) {
-      checkMoveNumber = 0;
-    }
-  }
+  // if (checkMoveNumber == -1 || checkMoveNumber == 1) {
+  //   if (isInTopRow) {
+  //     checkMoveNumber = finalTileIndex - tileToMoveIndex;
+  //   } else {
+  //     checkMoveNumber = 0;
+  //   }
+  // }
+  // debugger;
+  // if (checkMoveNumber == -1 || checkMoveNumber == 1) {
+  //   if (isInMiddleRow) {
+  //     checkMoveNumber = finalTileIndex - tileToMoveIndex;
+  //   } else {
+  //     checkMoveNumber = 0;
+  //   }
+  // }
 
-  if (isInBottomRow == false) {
-    if (checkMoveNumber == -1 || checkMoveNumber == 1) {
-      checkMoveNumber = 0;
-    }
-  }
+  // debugger;
+  // if (checkMoveNumber == -1 || checkMoveNumber == 1) {
+  //   if (isInBottomRow) {
+  //     checkMoveNumber = finalTileIndex - tileToMoveIndex;
+  //   } else {
+  //     checkMoveNumber = 0;
+  //   }
+  // }
 
+  // debugger;
   let isMoveVaild = validMoves.includes(checkMoveNumber);
-  debugger;
+
   if (isMoveVaild) {
     arr[tileToMoveIndex] = finalTile;
     arr[finalTileIndex] = element;
