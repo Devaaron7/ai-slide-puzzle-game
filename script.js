@@ -9,6 +9,7 @@ module.exports = {
   move,
   checkWinner,
   cheat,
+  tilesInSameRow,
 };
 
 function render() {
