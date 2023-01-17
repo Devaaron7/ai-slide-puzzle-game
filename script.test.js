@@ -4,12 +4,37 @@
 
 const methodsToTest = require("./script");
 
+async function sleep(seconds) {
+  return new Promise((resolve) => setTimeout(resolve, seconds * 1000));
+}
+
+const puppeteer = require("puppeteer");
+
+let browser, page;
+
+beforeEach(async () => {
+  browser = await puppeteer.launch({
+    headless: false,
+    defaultViewport: null,
+    args: ["--start-maximized"],
+  });
+  page = await browser.newPage();
+  //await page.setViewport({ width: 0, height: 0 });
+  await page.goto("http://127.0.0.1:5500/index.html");
+});
+
+afterEach(async () => {
+  await browser.close();
+});
+
 describe("Checks that the board was loaded", () => {
-  test("", () => {
+  test("", async () => {
+    const url = await page.url();
+
     let tileBoard = methodsToTest.render();
     let checkBoard = tileBoard.getElementById("board");
     let checkTile = tileBoard.getElementById("P1of9");
-
+    //await sleep(5);
     expect(checkTile.id == "P1of9" && checkBoard.children.length == 9).toBe(
       true
     );
@@ -17,7 +42,8 @@ describe("Checks that the board was loaded", () => {
 });
 
 describe("Checks that board was shuffled", () => {
-  test("", () => {
+  test("", async () => {
+    const url = await page.url();
     let tileBoard = methodsToTest.render();
     var startPostion = [...tileBoard.getElementById("board").children];
     methodsToTest.shuffleBoard();
@@ -28,9 +54,10 @@ describe("Checks that board was shuffled", () => {
 });
 
 describe("Checks that cheat function places board in win position", () => {
-  test("", () => {
+  test("", async () => {
     // hack - need to see how the run test without shuffle from
     // ln 4 of script.js starting
+    const url = await page.url();
     methodsToTest.cheat();
     let tileBoard = methodsToTest.render();
     let patternA = [];
@@ -65,7 +92,8 @@ describe("Checks that cheat function places board in win position", () => {
 
 // test may not be accurate
 describe("No invalid tiles move when clicked", () => {
-  test("", () => {
+  test("", async () => {
+    const url = await page.url();
     methodsToTest.cheat();
     let tileBoard = methodsToTest.render();
     methodsToTest.cheat();
@@ -111,10 +139,15 @@ describe("No invalid tiles move when clicked", () => {
 });
 
 describe("All valid tiles move when clicked", () => {
-  test("", () => {
-    methodsToTest.cheat();
+  test("", async () => {
+    const url = await page.url();
+    //methodsToTest.cheat;
+    //sleep(3);
     let tileBoard = methodsToTest.render();
-    methodsToTest.cheat();
+    //debugger;
+    methodsToTest.cheat;
+    //debugger;
+    //sleep(3);
     let patternA = [];
     let patternB = [];
     var counterCheck = 0;
@@ -124,6 +157,8 @@ describe("All valid tiles move when clicked", () => {
     for (var i = 0; i < startPostion.length; i++) {
       patternA.push(startPostion[i]);
     }
+
+    await sleep(5);
 
     var tilesToClick = [
       validTilesToTest[5],
@@ -135,6 +170,8 @@ describe("All valid tiles move when clicked", () => {
       validTilesToTest[1],
       validTilesToTest[0],
     ];
+
+    await sleep(5);
 
     for (var i = 0; i < tilesToClick.length; i++) {
       tilesToClick[i].click;

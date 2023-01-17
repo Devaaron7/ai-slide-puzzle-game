@@ -1,4 +1,5 @@
 "use strict";
+
 const tileBoard = render();
 const winningPattern = [...tileBoard.getElementById("board").children];
 shuffleBoard();
