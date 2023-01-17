@@ -1,43 +1,43 @@
-/**
- * @jest-environment jsdom
- */
+/** @jest-environment jsdom */
 
 const methodsToTest = require("./script");
+const puppeteer = require("puppeteer");
 
 async function sleep(seconds) {
   return new Promise((resolve) => setTimeout(resolve, seconds * 1000));
 }
 
-const puppeteer = require("puppeteer");
-
-let browser, page;
-
+// Setup
 beforeEach(async () => {
-  browser = await puppeteer.launch({
+  let browser = await puppeteer.launch({
     headless: false,
     defaultViewport: null,
     args: ["--start-maximized"],
   });
-  page = await browser.newPage();
-  //await page.setViewport({ width: 0, height: 0 });
-  await page.goto("http://127.0.0.1:5500/index.html");
+  let page = await browser.newPage();
+
+  await page.goto("http://127.0.0.1:5500/index_test.html");
 });
 
+// Tear Down
 afterEach(async () => {
   await browser.close();
 });
 
+// Tests
 describe("Checks that the board was loaded", () => {
   test("", async () => {
-    const url = await page.url();
-
+    //const url = await page.url();
+    //methodsToTest.render();
+    methodsToTest.render();
     let tileBoard = methodsToTest.render();
+    tileBoard;
     let checkBoard = tileBoard.getElementById("board");
     let checkTile = tileBoard.getElementById("P1of9");
-    //await sleep(5);
-    expect(checkTile.id == "P1of9" && checkBoard.children.length == 9).toBe(
-      true
-    );
+    await sleep(15);
+    await expect(
+      checkTile.id == "P1of9" && checkBoard.children.length == 9
+    ).toBe(true);
   });
 });
 
@@ -119,6 +119,8 @@ describe("No invalid tiles move when clicked", () => {
     for (var i = 0; i < tilesToClick.length; i++) {
       tilesToClick[i].click;
     }
+    sleep(20);
+    //debugger;
 
     var currentPostion = [...tileBoard.getElementById("board").children];
     for (var i = 0; i < currentPostion.length; i++) {
@@ -138,6 +140,7 @@ describe("No invalid tiles move when clicked", () => {
   });
 });
 
+jest.setTimeout(10000);
 describe("All valid tiles move when clicked", () => {
   test("", async () => {
     const url = await page.url();
@@ -145,7 +148,7 @@ describe("All valid tiles move when clicked", () => {
     //sleep(3);
     let tileBoard = methodsToTest.render();
     //debugger;
-    methodsToTest.cheat;
+    methodsToTest.cheat();
     //debugger;
     //sleep(3);
     let patternA = [];

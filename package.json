@@ -4,7 +4,7 @@
   "description": "",
   "main": "script.js",
   "scripts": {
-    "test": "jest --env=jsdom"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
