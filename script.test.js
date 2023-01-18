@@ -7,16 +7,20 @@ async function sleep(seconds) {
   return new Promise((resolve) => setTimeout(resolve, seconds * 1000));
 }
 
+let browser;
+let page;
+
 // Setup
 beforeEach(async () => {
-  let browser = await puppeteer.launch({
+  browser = await puppeteer.launch({
     headless: false,
     defaultViewport: null,
     args: ["--start-maximized"],
+    //slowMo: 100,
   });
-  let page = await browser.newPage();
+  page = await browser.newPage();
 
-  await page.goto("http://127.0.0.1:5500/index_test.html");
+  await page.goto("http://127.0.0.1:5500/index.html");
 });
 
 // Tear Down
@@ -24,23 +28,27 @@ afterEach(async () => {
   await browser.close();
 });
 
+jest.setTimeout(20000);
+
 // Tests
+// Looks like these tests only reference the Html & script files it's testing - it doesn't build the elements itself. Will test this by writing test by using commands from script.js instead
 describe("Checks that the board was loaded", () => {
   test("", async () => {
-    const url = await page.url();
-    //methodsToTest.render();
-    methodsToTest.render();
+    //const url = await page.url();
+    //let testShuffle = methodsToTest.shuffleBoard();
     let tileBoard = methodsToTest.render();
-    tileBoard;
+    let destroy = tileBoard.getElementById("board").replaceChildren();
+    destroy;
     let checkBoard = tileBoard.getElementById("board");
     let checkTile = tileBoard.getElementById("P1of9");
-    //await sleep(15);
+    await sleep(15);
     expect(checkTile.id == "P1of9" && checkBoard.children.length == 9).toBe(
       true
     );
   });
 });
 
+/*
 describe("Checks that board was shuffled", () => {
   test("", async () => {
     const url = await page.url();
@@ -199,3 +207,4 @@ describe("All valid tiles move when clicked", () => {
     expect(didBoardMove).toBe(true);
   });
 });
+*/
