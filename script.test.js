@@ -1,6 +1,6 @@
 /** @jest-environment jsdom */
 
-const methodsToTest = require("./script");
+const methodsToTest = require("./script.js");
 const puppeteer = require("puppeteer");
 
 async function sleep(seconds) {
@@ -27,17 +27,17 @@ afterEach(async () => {
 // Tests
 describe("Checks that the board was loaded", () => {
   test("", async () => {
-    //const url = await page.url();
+    const url = await page.url();
     //methodsToTest.render();
     methodsToTest.render();
     let tileBoard = methodsToTest.render();
     tileBoard;
     let checkBoard = tileBoard.getElementById("board");
     let checkTile = tileBoard.getElementById("P1of9");
-    await sleep(15);
-    await expect(
-      checkTile.id == "P1of9" && checkBoard.children.length == 9
-    ).toBe(true);
+    //await sleep(15);
+    expect(checkTile.id == "P1of9" && checkBoard.children.length == 9).toBe(
+      true
+    );
   });
 });
 
@@ -119,7 +119,7 @@ describe("No invalid tiles move when clicked", () => {
     for (var i = 0; i < tilesToClick.length; i++) {
       tilesToClick[i].click;
     }
-    sleep(20);
+    //sleep(20);
     //debugger;
 
     var currentPostion = [...tileBoard.getElementById("board").children];
@@ -161,7 +161,7 @@ describe("All valid tiles move when clicked", () => {
       patternA.push(startPostion[i]);
     }
 
-    await sleep(5);
+    //await sleep(5);
 
     var tilesToClick = [
       validTilesToTest[5],
@@ -195,7 +195,7 @@ describe("All valid tiles move when clicked", () => {
         }
       }
     }
-    debugger;
+    //debugger;
     expect(didBoardMove).toBe(true);
   });
 });
