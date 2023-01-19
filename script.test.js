@@ -1,7 +1,7 @@
-/** @jest-environment jsdom */
+//const methodsToTest = require("./script.js");
+//const puppeteer = require("puppeteer");
 
-const methodsToTest = require("./script.js");
-const puppeteer = require("puppeteer");
+import * as myModule from "./script.js";
 
 async function sleep(seconds) {
   return new Promise((resolve) => setTimeout(resolve, seconds * 1000));
@@ -20,11 +20,12 @@ beforeEach(async () => {
   });
   page = await browser.newPage();
 
-  await page.goto("http://127.0.0.1:5500/index.html");
+  await page.goto("http://127.0.0.1:5500/");
 });
 
 // Tear Down
 afterEach(async () => {
+  await sleep(25);
   await browser.close();
 });
 
@@ -36,12 +37,15 @@ describe("Checks that the board was loaded", () => {
   test("", async () => {
     //const url = await page.url();
     //let testShuffle = methodsToTest.shuffleBoard();
-    let tileBoard = methodsToTest.render();
-    let destroy = tileBoard.getElementById("board").replaceChildren();
-    destroy;
+    let tileBoard = myModule.default;
+    //tileBoard;
+    //cheat();
+    //methodsToTest.cheat();
+    //let destroy = tileBoard.getElementById("board").replaceChildren();
+    //destroy;
     let checkBoard = tileBoard.getElementById("board");
     let checkTile = tileBoard.getElementById("P1of9");
-    await sleep(15);
+    //methodsToTest.tileBoard.getElementById("board").children[7].click();
     expect(checkTile.id == "P1of9" && checkBoard.children.length == 9).toBe(
       true
     );

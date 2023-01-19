@@ -4,7 +4,7 @@
   "description": "",
   "main": "script.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest --env=jsdom"
   },
   "repository": {
     "type": "git",
@@ -18,12 +18,15 @@
   },
   "homepage": "https://github.com/linkthedev90/slide-puzzle-game#readme",
   "devDependencies": {
+    "@babel/core": "^7.20.12",
     "@babel/preset-env": "^7.20.2",
+    "babel-jest": "^29.3.1",
     "jest": "^29.3.1",
     "jest-environment-jsdom": "^29.3.1"
   },
   "dependencies": {
     "@types/jest": "^29.2.5",
+    "babel": "^6.23.0",
     "jsdom": "^21.0.0",
     "puppeteer": "^19.5.2"
   }
