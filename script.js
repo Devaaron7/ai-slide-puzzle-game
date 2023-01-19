@@ -1,9 +1,9 @@
 "use strict";
 
-const tileBoard = render;
+const tileBoard = render();
 const winningPattern = [...tileBoard.getElementById("board").children];
 //shuffleBoard();
-
+//tileBoard
 // module.exports = {
 //   render(),
 //   shuffleBoard,
@@ -13,30 +13,9 @@ const winningPattern = [...tileBoard.getElementById("board").children];
 //   tilesInSameRow,
 // };
 
-export default render;
+//export default render;
 
-// function render() {
-//   const section = document.createElement("section");
-//   const rootDiv = document.createElement("div");
-//   rootDiv.setAttribute("id", "board");
-//   rootDiv.setAttribute("class", "main-board");
-
-//   var counter = 1;
-
-//   for (var i = 0; i < 9; i++) {
-//     var childDiv = document.createElement("div");
-//     childDiv.setAttribute("id", `P${counter}of9`);
-//     childDiv.setAttribute("onclick", "move(this);");
-//     rootDiv.appendChild(childDiv);
-//     counter++;
-//   }
-//   document.body.appendChild(section);
-//   section.appendChild(rootDiv);
-
-//   return document;
-// }
-
-const render = () => {
+function render() {
   const section = document.createElement("section");
   const rootDiv = document.createElement("div");
   rootDiv.setAttribute("id", "board");
@@ -55,7 +34,28 @@ const render = () => {
   section.appendChild(rootDiv);
 
   return document;
-};
+}
+
+// const render = () => {
+//   const section = document.createElement("section");
+//   const rootDiv = document.createElement("div");
+//   rootDiv.setAttribute("id", "board");
+//   rootDiv.setAttribute("class", "main-board");
+
+//   var counter = 1;
+
+//   for (var i = 0; i < 9; i++) {
+//     var childDiv = document.createElement("div");
+//     childDiv.setAttribute("id", `P${counter}of9`);
+//     childDiv.setAttribute("onclick", "move(this);");
+//     rootDiv.appendChild(childDiv);
+//     counter++;
+//   }
+//   document.body.appendChild(section);
+//   section.appendChild(rootDiv);
+
+//   return document;
+// };
 
 function shuffleBoard() {
   let arr = [...tileBoard.getElementById("board").children];
