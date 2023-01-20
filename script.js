@@ -42,6 +42,10 @@ function clearBoard() {
   tileBoard.innerHTML = "";
 }
 
+function getDocument() {
+  return tileBoard.getElementById("board")
+}
+
 function shuffleBoard() {
   let arr = [...tileBoard.getElementById("board").children];
   let currentIndex = arr.length,
