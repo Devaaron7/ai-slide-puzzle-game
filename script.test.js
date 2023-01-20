@@ -25,17 +25,44 @@ beforeEach(async () => {
 
 // Tear Down
 afterEach(async () => {
-  await sleep(5);
+  //await sleep(5);
   await browser.close();
 });
 
-jest.setTimeout(20000);
+//jest.setTimeout(20000);
 
 // Tests
 // Looks like these tests only reference the Html & script files it's testing - it doesn't build the elements itself. Will test this by writing test by using commands from script.js instead
 describe("Checks that the board was loaded", () => {
   test("", async () => {
-    const url = await page.url();
+    //const url = await page.url();
+    //let source = await page.content()
+
+    const firstTile = await page.$("#P1of9").id
+    const lastTile = await page.$("#P9of9")
+
+   
+
+    // await page.evaluate(() => {
+    //   //set_calendar_date ('1');
+    //   clearBoard()
+    // });
+
+    //await sleep(5);
+
+    // await page.evaluate(() => {
+    //   //set_calendar_date ('1');
+    //   render()
+    // });
+
+    //await sleep(5);
+
+    //const f = await page.$("#P8of9")
+
+    //f.click()
+
+
+    console.log(firstTile.id)
     //let testShuffle = methodsToTest.shuffleBoard();
     //let tileBoard = myModule.default;
     //tileBoard;
@@ -46,7 +73,7 @@ describe("Checks that the board was loaded", () => {
     //let checkBoard = tileBoard.getElementById("board");
     //let checkTile = tileBoard.getElementById("P1of9");
     //methodsToTest.tileBoard.getElementById("board").children[7].click();
-    expect(url == "http://127.0.0.1:5500/index.html").toBe(
+    expect(firstTile == "P1of9").toBe(
       true
     );
   });
