@@ -4,6 +4,14 @@ const tileBoard = render();
 const winningPattern = [...tileBoard.getElementById("board").children];
 shuffleBoard();
 const currentPattern = [...tileBoard.getElementById("board").children];
+let namer = "Aaron";
+let listOfWinningPattern = [];
+let listOfCurrentPattern = [];
+//getWinningPattern();
+//getCurrentPattern();
+
+module.exports = { listOfWinningPattern };
+
 //tileBoard
 // module.exports = {
 //   render(),
@@ -42,12 +50,17 @@ function clearBoard() {
   tileBoard.innerHTML = "";
 }
 
-function getWinningPattern() {
-  return winningPattern;
+async function getWinningPattern() {
+  for (var i = 0; i < winningPattern.length; i++) {
+    listOfWinningPattern.push(winningPattern[i]);
+  }
 }
+//module.exports = { listOfWinningPattern };
 
 function getCurrentPattern() {
-  return currentPattern;
+  for (var i = 0; i < currentPattern.length; i++) {
+    listOfCurrentPattern.push(currentPattern[i]);
+  }
 }
 
 function shuffleBoard() {

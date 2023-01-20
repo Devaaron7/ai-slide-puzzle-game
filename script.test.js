@@ -1,11 +1,16 @@
+//import { listOfWinningPattern } from "./script.js";
 const puppeteer = require("puppeteer");
 
 async function sleep(seconds) {
   return new Promise((resolve) => setTimeout(resolve, seconds * 1000));
 }
 
+const { listOfWinningPattern } = require("./script");
+
 let browser;
 let page;
+let startTiles = [];
+let currentTiles = [];
 
 // Setup
 beforeEach(async () => {
@@ -46,18 +51,19 @@ describe("Checks that the board was loaded", () => {
 
 describe("Checks that board was shuffled", () => {
   test("", async () => {
-    let startTiles = [];
-    let currentTiles = [];
-
     let current = await page.evaluate(() => {
       getWinningPattern();
     });
+
+    //listOfWinningPattern = require("./script");
 
     // for (var i = 0; i < current.length; i++) {
     //   startTiles.push(current[i]);
     // }
 
-    console.log(current);
+    //current;
+
+    console.log(listOfWinningPattern);
 
     expect(true).toBe(true);
   });
