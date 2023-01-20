@@ -3,6 +3,7 @@
 const tileBoard = render();
 const winningPattern = [...tileBoard.getElementById("board").children];
 shuffleBoard();
+const currentPattern = [...tileBoard.getElementById("board").children];
 //tileBoard
 // module.exports = {
 //   render(),
@@ -37,13 +38,16 @@ function render() {
 }
 
 function clearBoard() {
-
   tileBoard.replaceChildren();
   tileBoard.innerHTML = "";
 }
 
-function getDocument() {
-  return tileBoard.getElementById("board")
+function getWinningPattern() {
+  return winningPattern;
+}
+
+function getCurrentPattern() {
+  return currentPattern;
 }
 
 function shuffleBoard() {

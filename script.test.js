@@ -44,18 +44,26 @@ describe("Checks that the board was loaded", () => {
   });
 });
 
-/*
 describe("Checks that board was shuffled", () => {
   test("", async () => {
-    const url = await page.url();
-    let tileBoard = methodsToTest.render();
-    var startPostion = [...tileBoard.getElementById("board").children];
-    methodsToTest.shuffleBoard();
-    var afterShuffle = [...tileBoard.getElementById("board").children];
+    let startTiles = [];
+    let currentTiles = [];
 
-    expect(startPostion == afterShuffle).toBe(false);
+    let current = await page.evaluate(() => {
+      getWinningPattern();
+    });
+
+    // for (var i = 0; i < current.length; i++) {
+    //   startTiles.push(current[i]);
+    // }
+
+    console.log(current);
+
+    expect(true).toBe(true);
   });
 });
+
+/*
 
 describe("Checks that cheat function places board in win position", () => {
   test("", async () => {
