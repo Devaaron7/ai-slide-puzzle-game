@@ -7,10 +7,10 @@ const currentPattern = [...tileBoard.getElementById("board").children];
 let namer = "Aaron";
 let listOfWinningPattern = [];
 let listOfCurrentPattern = [];
-//getWinningPattern();
-//getCurrentPattern();
+getWinningPattern();
+getCurrentPattern();
 
-module.exports = { listOfWinningPattern };
+module.exports = { listOfWinningPattern, listOfCurrentPattern };
 
 //tileBoard
 // module.exports = {
@@ -57,7 +57,7 @@ async function getWinningPattern() {
 }
 //module.exports = { listOfWinningPattern };
 
-function getCurrentPattern() {
+async function getCurrentPattern() {
   for (var i = 0; i < currentPattern.length; i++) {
     listOfCurrentPattern.push(currentPattern[i]);
   }

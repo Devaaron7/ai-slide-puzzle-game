@@ -5,7 +5,7 @@ async function sleep(seconds) {
   return new Promise((resolve) => setTimeout(resolve, seconds * 1000));
 }
 
-const { listOfWinningPattern } = require("./script");
+const { listOfWinningPattern, listOfCurrentPattern } = require("./script");
 
 let browser;
 let page;
@@ -36,6 +36,10 @@ jest.setTimeout(10000);
 // Tests
 describe("Checks that the board was loaded", () => {
   test("", async () => {
+    let setup = await page.evaluate(() => {
+      cheat();
+    });
+
     const firstTile = await page.$eval("#P1of9", (tile) => tile.id);
     const lastTile = await page.$eval("#P9of9", (tile) => tile.id);
     const tileCount = await page.$eval(
@@ -43,17 +47,20 @@ describe("Checks that the board was loaded", () => {
       (tile) => tile.children.length
     );
 
-    expect(firstTile == "P1of9" && lastTile == "P9of9" && tileCount == 9).toBe(
-      true
-    );
+    expect(
+      firstTile == "P1of9" && lastTile == "P9of9" && tileCount == 9,
+      "Should return true if all the Divs with the tile IDs was loaded into the DOM"
+    ).toBe(true);
   });
 });
 
 describe("Checks that board was shuffled", () => {
   test("", async () => {
-    let current = await page.evaluate(() => {
-      getWinningPattern();
-    });
+    let isBoardShuffled = false;
+    let counterCheck = 0;
+    // let current = await page.evaluate(() => {
+    //   getWinningPattern();
+    // });
 
     //listOfWinningPattern = require("./script");
 
@@ -62,10 +69,27 @@ describe("Checks that board was shuffled", () => {
     // }
 
     //current;
+    debugger;
 
-    console.log(listOfWinningPattern);
+    // console.log(listOfWinningPattern);
 
-    expect(true).toBe(true);
+    // console.log(listOfCurrentPattern);
+
+    for (var i = 0; i < 8; i++) {
+      if (listOfWinningPattern[i] == listOfCurrentPattern[i]) {
+        counterCheck += 1;
+        if (counterCheck == 8) {
+          isBoardShuffled = false;
+        } else {
+          isBoardShuffled = true;
+        }
+      }
+    }
+
+    expect(
+      isBoardShuffled,
+      "This should be true unless the shuffle function isn't working. The current tile state matches the inital state."
+    ).toBe(true);
   });
 });
 
