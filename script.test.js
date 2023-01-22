@@ -92,8 +92,8 @@ describe("Checks that cheat function puts the board in the win state", () => {
       (tileBoard) => tileBoard.children[8].id
     );
 
-    console.log(idOfTileInEightSlot);
-    console.log(eighthTileId);
+    // console.log(idOfTileInEightSlot);
+    // console.log(eighthTileId);
     expect(
       idOfTileInEightSlot == eighthTileId,
       "Should return true if cheat function & tile move on click is working correctly"
@@ -101,106 +101,48 @@ describe("Checks that cheat function puts the board in the win state", () => {
   });
 });
 
-/*
-
-// test may not be accurate
-describe("No invalid tiles move when clicked", () => {
+describe("Check if invalid tiles move on click", () => {
   test("", async () => {
-    const url = await page.url();
-    methodsToTest.cheat();
-    let tileBoard = methodsToTest.render();
-    methodsToTest.cheat();
-    let patternA = [];
-    let patternB = [];
-    var counterCheck = 0;
-    var didBoardMove = Boolean(false);
-    var startPostion = [...tileBoard.getElementById("board").children];
-    var invalidTilesToTest = tileBoard.getElementById("board").children;
-    for (var i = 0; i < startPostion.length; i++) {
-      patternA.push(startPostion[i]);
-    }
+    let didBoardMove = null;
+    let counterCheck = 0;
 
-    var tilesToClick = [
-      invalidTilesToTest[0],
-      invalidTilesToTest[1],
-      invalidTilesToTest[2],
-      invalidTilesToTest[3],
-      invalidTilesToTest[4],
-      invalidTilesToTest[6],
-    ];
+    let setup = await page.evaluate(() => {
+      cheat();
+    });
 
-    for (var i = 0; i < tilesToClick.length; i++) {
-      tilesToClick[i].click;
-    }
-    //sleep(20);
-    //debugger;
+    let clickInvalidTiles = await page.$eval("#board", (tile) => {
+      let invalidTiles = [];
+      invalidTiles.push(tile.children[0]);
+      invalidTiles.push(tile.children[1]);
+      invalidTiles.push(tile.children[2]);
+      invalidTiles.push(tile.children[3]);
+      invalidTiles.push(tile.children[4]);
+      invalidTiles.push(tile.children[6]);
 
-    var currentPostion = [...tileBoard.getElementById("board").children];
-    for (var i = 0; i < currentPostion.length; i++) {
-      patternB.push(currentPostion[i]);
-    }
-
-    for (var i = 0; i < 8; i++) {
-      if (patternA[i] == patternB[i]) {
-        counterCheck += 1;
-        if (counterCheck == 8) {
-          didBoardMove = false;
-        }
+      for (var i = 0; i < invalidTiles.length; i++) {
+        invalidTiles[i].click();
       }
-    }
+    });
 
-    expect(didBoardMove).toBe(false);
-  });
-});
+    let listOfIdsFromBoardAfterClickingInvalidTiles = await page.$eval(
+      "#board",
+      (tile) => {
+        let pattern = [];
 
-jest.setTimeout(10000);
-describe("All valid tiles move when clicked", () => {
-  test("", async () => {
-    const url = await page.url();
-    //methodsToTest.cheat;
-    //sleep(3);
-    let tileBoard = methodsToTest.render();
-    //debugger;
-    methodsToTest.cheat();
-    //debugger;
-    //sleep(3);
-    let patternA = [];
-    let patternB = [];
-    var counterCheck = 0;
-    var didBoardMove = Boolean(false);
-    var startPostion = [...tileBoard.getElementById("board").children];
-    var validTilesToTest = tileBoard.getElementById("board").children;
-    for (var i = 0; i < startPostion.length; i++) {
-      patternA.push(startPostion[i]);
-    }
-
-    //await sleep(5);
-
-    var tilesToClick = [
-      validTilesToTest[5],
-      validTilesToTest[8],
-      validTilesToTest[7],
-      validTilesToTest[8],
-      validTilesToTest[5],
-      validTilesToTest[4],
-      validTilesToTest[1],
-      validTilesToTest[0],
-    ];
-
-    await sleep(5);
-
-    for (var i = 0; i < tilesToClick.length; i++) {
-      tilesToClick[i].click;
-    }
-
-    var currentPostion = [...tileBoard.getElementById("board").children];
-    for (var i = 0; i < currentPostion.length; i++) {
-      patternB.push(currentPostion[i]);
-    }
+        for (var i = 0; i < tile.children.length; i++) {
+          pattern.push(tile.children[i].id);
+        }
+        return pattern;
+      }
+    );
 
     for (var i = 0; i < 8; i++) {
-      if (patternA[i] == patternB[i]) {
+      if (
+        listOfWinningPattern[i].id ==
+        listOfIdsFromBoardAfterClickingInvalidTiles[i]
+      ) {
         counterCheck += 1;
+        console.log(counterCheck);
         if (counterCheck == 8) {
           didBoardMove = false;
         } else {
@@ -208,8 +150,67 @@ describe("All valid tiles move when clicked", () => {
         }
       }
     }
-    //debugger;
-    expect(didBoardMove).toBe(true);
+
+    expect(
+      didBoardMove,
+      "Should return false as long as logic for invalid tiles is working"
+    ).toBe(false);
   });
 });
-*/
+
+describe("Check if valid tiles move on click", () => {
+  test.only("", async () => {
+    let didBoardMove = null;
+    let counterCheck = 0;
+
+    let setup = await page.evaluate(() => {
+      cheat();
+    });
+
+    let clickValidTiles = await page.$eval("#board", (tile) => {
+      let validTiles = [];
+      validTiles.push(tile.children[5]);
+      validTiles.push(tile.children[4]);
+      validTiles.push(tile.children[1]);
+      validTiles.push(tile.children[0]);
+      validTiles.push(tile.children[3]);
+      validTiles.push(tile.children[5]);
+
+      for (var i = 0; i < validTiles.length; i++) {
+        validTiles[i].click();
+      }
+    });
+
+    let listOfIdsFromBoardAfterClickingValidTiles = await page.$eval(
+      "#board",
+      (tile) => {
+        let pattern = [];
+
+        for (var i = 0; i < tile.children.length; i++) {
+          pattern.push(tile.children[i].id);
+        }
+        return pattern;
+      }
+    );
+
+    for (var i = 0; i < 8; i++) {
+      if (
+        listOfWinningPattern[i].id ==
+        listOfIdsFromBoardAfterClickingValidTiles[i]
+      ) {
+        counterCheck += 1;
+        console.log(counterCheck);
+        if (counterCheck == 8) {
+          didBoardMove = false;
+        } else {
+          didBoardMove = true;
+        }
+      }
+    }
+
+    expect(
+      didBoardMove,
+      "Should return true as long as logic for valid tiles is working"
+    ).toBe(true);
+  });
+});
