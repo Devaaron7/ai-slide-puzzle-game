@@ -1,4 +1,5 @@
-//import { listOfWinningPattern } from "./script.js";
+"use strict";
+
 const puppeteer = require("puppeteer");
 
 async function sleep(seconds) {
@@ -9,8 +10,7 @@ const { listOfWinningPattern, listOfCurrentPattern } = require("./script");
 
 let browser;
 let page;
-let startTiles = [];
-let currentTiles = [];
+jest.setTimeout(10000);
 
 // Setup
 beforeEach(async () => {
@@ -30,8 +30,6 @@ afterEach(async () => {
   await sleep(2);
   await browser.close();
 });
-
-jest.setTimeout(10000);
 
 // Tests
 describe("Checks that the board was loaded", () => {
@@ -58,22 +56,6 @@ describe("Checks that board was shuffled", () => {
   test("", async () => {
     let isBoardShuffled = false;
     let counterCheck = 0;
-    // let current = await page.evaluate(() => {
-    //   getWinningPattern();
-    // });
-
-    //listOfWinningPattern = require("./script");
-
-    // for (var i = 0; i < current.length; i++) {
-    //   startTiles.push(current[i]);
-    // }
-
-    //current;
-    debugger;
-
-    // console.log(listOfWinningPattern);
-
-    // console.log(listOfCurrentPattern);
 
     for (var i = 0; i < 8; i++) {
       if (listOfWinningPattern[i] == listOfCurrentPattern[i]) {
