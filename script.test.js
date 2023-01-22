@@ -18,16 +18,16 @@ beforeEach(async () => {
     headless: false,
     defaultViewport: null,
     args: ["--start-maximized"],
-    //slowMo: 100,
+    slowMo: 500,
   });
-  page = await browser.newPage();
+  [page] = await browser.pages();
 
   await page.goto("http://127.0.0.1:5500/index.html");
 });
 
 // Tear Down
 afterEach(async () => {
-  await sleep(2);
+  await sleep(1);
   await browser.close();
 });
 
@@ -142,7 +142,6 @@ describe("Check if invalid tiles move on click", () => {
         listOfIdsFromBoardAfterClickingInvalidTiles[i]
       ) {
         counterCheck += 1;
-        console.log(counterCheck);
         if (counterCheck == 8) {
           didBoardMove = false;
         } else {
@@ -159,7 +158,7 @@ describe("Check if invalid tiles move on click", () => {
 });
 
 describe("Check if valid tiles move on click", () => {
-  test.only("", async () => {
+  test("", async () => {
     let didBoardMove = null;
     let counterCheck = 0;
 
@@ -199,7 +198,6 @@ describe("Check if valid tiles move on click", () => {
         listOfIdsFromBoardAfterClickingValidTiles[i]
       ) {
         counterCheck += 1;
-        console.log(counterCheck);
         if (counterCheck == 8) {
           didBoardMove = false;
         } else {
