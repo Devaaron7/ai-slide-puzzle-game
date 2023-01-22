@@ -22,6 +22,57 @@
   /* background-color: #2ecc71; */
 }
 
+.settings {
+  display: grid;
+  margin: auto;
+  gap: 1px;
+  grid-template-columns: repeat(3, 1fr);
+  width: 1064px;
+  height: 100px;
+  background-color: rgb(0, 0, 0);
+}
+
+#blank_page > p {
+  width: 355px;
+  height: 100px;
+
+  padding-left: 25px;
+  padding-top: 25px;
+  padding-right: 25px;
+  padding-bottom: 25px;
+  /* color: rgb(54, 214, 134);
+  position: relative;
+  top: 0px;
+  left: 0px; */
+}
+
+#cheat > button {
+  width: 355px;
+  height: 100px;
+  padding-left: 25px;
+  padding-top: 25px;
+  padding-right: 25px;
+  padding-bottom: 25px;
+  /* color: rgb(124, 32, 32);
+  position: relative;
+  top: 0px;
+  left: 0px; */
+}
+
+#clock > p {
+  width: 355px;
+  height: 100px;
+  padding-left: 25px;
+  padding-top: 25px;
+  padding-right: 25px;
+  padding-bottom: 25px;
+  /* font-size: 20px;
+  color: rgb(193, 16, 199);
+  position: relative;
+  top: 0px;
+  left: 0px; */
+}
+
 div > div {
   padding: 100px;
   border-style: solid;
