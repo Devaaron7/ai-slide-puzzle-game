@@ -75,44 +75,33 @@ describe("Checks that board was shuffled", () => {
   });
 });
 
-/*
-
-describe("Checks that cheat function places board in win position", () => {
+describe("Checks that cheat function puts the board in the win state", () => {
   test("", async () => {
-    // hack - need to see how the run test without shuffle from
-    // ln 4 of script.js starting
-    const url = await page.url();
-    methodsToTest.cheat();
-    let tileBoard = methodsToTest.render();
-    let patternA = [];
-    let patternB = [];
-    var counterCheck = 0;
-    var isBoardDone = Boolean(false);
-    var startPostion = [...tileBoard.getElementById("board").children];
-    for (var i = 0; i < startPostion.length; i++) {
-      patternA.push(startPostion[i]);
-    }
+    let setup = await page.evaluate(() => {
+      cheat();
+    });
 
-    methodsToTest.shuffleBoard();
+    const eighthTileSelected = await page.$eval("#P8of9", (tile) =>
+      tile.click()
+    );
 
-    methodsToTest.cheat();
-    var currentPostion = [...tileBoard.getElementById("board").children];
-    for (var i = 0; i < currentPostion.length; i++) {
-      patternB.push(currentPostion[i]);
-    }
+    const eighthTileId = await page.$eval("#P8of9", (tile) => tile.id);
 
-    for (var i = 0; i < 8; i++) {
-      if (patternA[i] == patternB[i]) {
-        counterCheck += 1;
-        if (counterCheck == 8) {
-          isBoardDone = true;
-        }
-      }
-    }
+    const idOfTileInEightSlot = await page.$eval(
+      "#board",
+      (tileBoard) => tileBoard.children[8].id
+    );
 
-    expect(isBoardDone).toBe(true);
+    console.log(idOfTileInEightSlot);
+    console.log(eighthTileId);
+    expect(
+      idOfTileInEightSlot == eighthTileId,
+      "Should return true if cheat function & tile move on click is working correctly"
+    ).toBe(true);
   });
 });
+
+/*
 
 // test may not be accurate
 describe("No invalid tiles move when clicked", () => {
