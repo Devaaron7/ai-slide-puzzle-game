@@ -1,6 +1,7 @@
 "use strict";
 
 const tileBoard = render();
+var cheatButtonText = document.getElementById("board");
 const winningPattern = [...tileBoard.getElementById("board").children];
 shuffleBoard();
 const currentPattern = [...tileBoard.getElementById("board").children];
