@@ -12,26 +12,26 @@ getWinningPattern();
 getCurrentPattern();
 module.exports = { listOfWinningPattern, listOfCurrentPattern };
 
-function render() {
-  const section = document.createElement("section");
-  const rootDiv = document.createElement("div");
-  rootDiv.setAttribute("id", "board");
-  rootDiv.setAttribute("class", "main-board");
+// function render() {
+//   const section = document.createElement("section");
+//   const rootDiv = document.createElement("div");
+//   rootDiv.setAttribute("id", "board");
+//   rootDiv.setAttribute("class", "main-board");
 
-  var counter = 1;
+//   var counter = 1;
 
-  for (var i = 0; i < 9; i++) {
-    var childDiv = document.createElement("div");
-    childDiv.setAttribute("id", `P${counter}of9`);
-    childDiv.setAttribute("onclick", "move(this);");
-    rootDiv.appendChild(childDiv);
-    counter++;
-  }
-  document.body.appendChild(section);
-  section.appendChild(rootDiv);
+//   for (var i = 0; i < 9; i++) {
+//     var childDiv = document.createElement("div");
+//     childDiv.setAttribute("id", `P${counter}of9`);
+//     childDiv.setAttribute("onclick", "move(this);");
+//     rootDiv.appendChild(childDiv);
+//     counter++;
+//   }
+//   document.body.appendChild(section);
+//   section.appendChild(rootDiv);
 
-  return document;
-}
+//   return document;
+// }
 
 function clearBoard() {
   tileBoard.replaceChildren();
