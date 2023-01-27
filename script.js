@@ -12,26 +12,45 @@ getWinningPattern();
 getCurrentPattern();
 module.exports = { listOfWinningPattern, listOfCurrentPattern };
 
-// function render() {
-//   const section = document.createElement("section");
-//   const rootDiv = document.createElement("div");
-//   rootDiv.setAttribute("id", "board");
-//   rootDiv.setAttribute("class", "main-board");
+function render() {
+  const section = document.createElement("section");
+  const rootDiv = document.createElement("div");
+  const settingsBar = document.createElement("div");
+  var blankDiv = document.createElement("div");
+  var cheatDiv = document.createElement("div");
+  var clockDiv = document.createElement("div");
+  var bodyText = document.createElement("p");
+  var cheatButton = document.createElement("button");
 
-//   var counter = 1;
+  rootDiv.setAttribute("id", "board");
+  rootDiv.setAttribute("class", "main-board");
+  settingsBar.setAttribute("class", "settings");
+  blankDiv.setAttribute("id", "blank_page");
+  cheatDiv.setAttribute("id", "cheat");
+  clockDiv.setAttribute("id", "clock");
 
-//   for (var i = 0; i < 9; i++) {
-//     var childDiv = document.createElement("div");
-//     childDiv.setAttribute("id", `P${counter}of9`);
-//     childDiv.setAttribute("onclick", "move(this);");
-//     rootDiv.appendChild(childDiv);
-//     counter++;
-//   }
-//   document.body.appendChild(section);
-//   section.appendChild(rootDiv);
+  var counter = 1;
 
-//   return document;
-// }
+  for (var i = 0; i < 9; i++) {
+    var childDiv = document.createElement("div");
+    childDiv.setAttribute("id", `P${counter}of9`);
+    childDiv.setAttribute("onclick", "move(this);");
+    rootDiv.appendChild(childDiv);
+    counter++;
+  }
+
+  document.body.appendChild(section);
+  section.appendChild(rootDiv);
+  section.appendChild(settingsBar);
+  settingsBar.appendChild(blankDiv);
+  blankDiv.appendChild(bodyText);
+  settingsBar.appendChild(cheatDiv);
+  cheatDiv.appendChild(cheatButton);
+  settingsBar.appendChild(clockDiv);
+  clockDiv.appendChild(bodyText);
+
+  return document;
+}
 
 function clearBoard() {
   tileBoard.replaceChildren();
