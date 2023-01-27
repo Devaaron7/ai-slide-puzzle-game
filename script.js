@@ -1,10 +1,15 @@
 "use strict";
 
 const tileBoard = render();
-var cheatButtonText = document.getElementById("board");
 const winningPattern = [...tileBoard.getElementById("board").children];
 shuffleBoard();
 const currentPattern = [...tileBoard.getElementById("board").children];
+var clockCounter = document.getElementById("clockText");
+
+var hour = 0;
+var seconds = 0;
+var zeroSeconds = 0;
+setInterval(startTimer, 1000);
 
 // variables & functions used in testing
 let listOfWinningPattern = [];
@@ -13,6 +18,24 @@ getWinningPattern();
 getCurrentPattern();
 module.exports = { listOfWinningPattern, listOfCurrentPattern };
 
+function startTimer() {
+  if (seconds == 10) {
+    zeroSeconds = "";
+  }
+  if (seconds == 60) {
+    hour += 1;
+    seconds = 0;
+    zeroSeconds = 0;
+  }
+  var hourString = hour.toString();
+  var secondsString = seconds.toString();
+  var zeroSecondsString = zeroSeconds.toString();
+  var formattedTimer = hourString.concat(":", zeroSecondsString, secondsString);
+  clockText.innerText = formattedTimer;
+
+  seconds += 1;
+}
+
 function render() {
   const section = document.createElement("section");
   const rootDiv = document.createElement("div");
@@ -20,8 +43,12 @@ function render() {
   var blankDiv = document.createElement("div");
   var cheatDiv = document.createElement("div");
   var clockDiv = document.createElement("div");
-  var bodyText = document.createElement("p");
+  var clockText = document.createElement("p");
   var cheatButton = document.createElement("button");
+  cheatButton.setAttribute("onclick", "cheat();");
+  cheatButton.innerText = "CHEAT";
+  cheatButton.style.fontSize = "40px";
+  clockText.innerText = "TESTING";
 
   rootDiv.setAttribute("id", "board");
   rootDiv.setAttribute("class", "main-board");
@@ -29,6 +56,7 @@ function render() {
   blankDiv.setAttribute("id", "blank_page");
   cheatDiv.setAttribute("id", "cheat");
   clockDiv.setAttribute("id", "clock");
+  clockText.setAttribute("id", "clockText");
 
   var counter = 1;
 
@@ -44,11 +72,11 @@ function render() {
   section.appendChild(rootDiv);
   section.appendChild(settingsBar);
   settingsBar.appendChild(blankDiv);
-  blankDiv.appendChild(bodyText);
+  blankDiv.appendChild(clockText);
   settingsBar.appendChild(cheatDiv);
   cheatDiv.appendChild(cheatButton);
   settingsBar.appendChild(clockDiv);
-  clockDiv.appendChild(bodyText);
+  clockDiv.appendChild(clockText);
 
   return document;
 }
