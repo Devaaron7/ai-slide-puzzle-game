@@ -4,6 +4,19 @@
 
 :root {
   --sourceImage: url(https://wallpapers.com/images/featured/fkq1k1pst35iab2c.jpg);
+
+  --sourceBkg: url(https://media.tenor.com/wSoSBColwAoAAAAC/super-mario-world-mario.gif);
+}
+
+#backgroundMovie {
+  background-image: var(--sourceBkg);
+  background-size: contain;
+  width: 1920px;
+  height: 1080px;
+  background-color: black;
+  position: absolute;
+  top: 21px;
+  left: 203px;
 }
 
 .main-board {
@@ -23,6 +36,12 @@
   /* height: 50px;
   width: 50px; */
   /* background-color: #2ecc71; */
+}
+
+section {
+  position: absolute;
+  top: 10%;
+  left: 28%;
 }
 
 .settings {

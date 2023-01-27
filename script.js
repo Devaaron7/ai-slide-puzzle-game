@@ -6,10 +6,13 @@ shuffleBoard();
 const currentPattern = [...tileBoard.getElementById("board").children];
 var clockCounter = document.getElementById("clockText");
 
-var hour = 0;
+var minutes = 0;
 var seconds = 0;
 var zeroSeconds = 0;
 setInterval(startTimer, 1000);
+new Audio(
+  "https://drive.google.com/uc?id=12G3rsqjOGW4-XMZIFD76v8WDBpFFl2zs"
+).play();
 
 // variables & functions used in testing
 let listOfWinningPattern = [];
@@ -23,14 +26,18 @@ function startTimer() {
     zeroSeconds = "";
   }
   if (seconds == 60) {
-    hour += 1;
+    minutes += 1;
     seconds = 0;
     zeroSeconds = 0;
   }
-  var hourString = hour.toString();
+  var minutesString = minutes.toString();
   var secondsString = seconds.toString();
   var zeroSecondsString = zeroSeconds.toString();
-  var formattedTimer = hourString.concat(":", zeroSecondsString, secondsString);
+  var formattedTimer = minutesString.concat(
+    ":",
+    zeroSecondsString,
+    secondsString
+  );
   clockText.innerText = formattedTimer;
 
   seconds += 1;
