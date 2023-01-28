@@ -5,10 +5,11 @@ const winningPattern = [...tileBoard.getElementById("board").children];
 shuffleBoard();
 const currentPattern = [...tileBoard.getElementById("board").children];
 var clockCounter = document.getElementById("clockText");
-
+var selectButton = document.getElementById("buttonOnly");
 var minutes = 0;
 var seconds = 0;
 var zeroSeconds = 0;
+var numberOfTileMoves = 0;
 setInterval(startTimer, 1000);
 var sfx = new Audio(
   "https://drive.google.com/uc?id=13a8dopqZFTTOCOgFd-Qpgbd8lAhxLw0q"
@@ -23,10 +24,14 @@ getWinningPattern();
 getCurrentPattern();
 module.exports = { listOfWinningPattern, listOfCurrentPattern };
 
-async function tileSfx() {
-  sfx.play();
+function showCheat() {
+  if (numberOfTileMoves > 3) {
+    selectButton.removeAttribute("hidden");
+  }
+}
 
-  //new Audio("./move.mp3").play();
+function tileSfx() {
+  sfx.play();
 }
 
 function startTimer() {
@@ -68,6 +73,8 @@ function render() {
   rootDiv.setAttribute("id", "board");
   rootDiv.setAttribute("class", "main-board");
   settingsBar.setAttribute("class", "settings");
+  cheatButton.setAttribute("id", "buttonOnly");
+  cheatButton.setAttribute("hidden", "hidden");
   blankDiv.setAttribute("id", "blank_page");
   cheatDiv.setAttribute("id", "cheat");
   clockDiv.setAttribute("id", "clock");
@@ -187,6 +194,8 @@ function move(element) {
 
   if (isMoveVaild) {
     tileSfx();
+    showCheat();
+    numberOfTileMoves += 1;
     arr[tileToMoveIndex] = finalTile;
     arr[finalTileIndex] = element;
 
