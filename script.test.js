@@ -214,7 +214,7 @@ describe("Check if valid tiles move on click", () => {
 });
 
 describe("Check for cheat button after 5 tile moves", () => {
-  test.only("", async () => {
+  test("", async () => {
     let setup = await page.evaluate(() => {
       cheat();
     });
