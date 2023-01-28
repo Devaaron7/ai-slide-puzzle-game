@@ -10,9 +10,6 @@ var minutes = 0;
 var seconds = 0;
 var zeroSeconds = 0;
 setInterval(startTimer, 1000);
-new Audio(
-  "https://drive.google.com/uc?id=12G3rsqjOGW4-XMZIFD76v8WDBpFFl2zs"
-).play();
 
 // variables & functions used in testing
 let listOfWinningPattern = [];
@@ -20,6 +17,12 @@ let listOfCurrentPattern = [];
 getWinningPattern();
 getCurrentPattern();
 module.exports = { listOfWinningPattern, listOfCurrentPattern };
+
+function startMusic() {
+  new Audio(
+    "https://drive.google.com/uc?id=12G3rsqjOGW4-XMZIFD76v8WDBpFFl2zs"
+  ).play();
+}
 
 function startTimer() {
   if (seconds == 10) {
