@@ -10,6 +10,11 @@ var minutes = 0;
 var seconds = 0;
 var zeroSeconds = 0;
 setInterval(startTimer, 1000);
+var sfx = new Audio(
+  "https://drive.google.com/uc?id=13a8dopqZFTTOCOgFd-Qpgbd8lAhxLw0q"
+);
+
+sfx.load();
 
 // variables & functions used in testing
 let listOfWinningPattern = [];
@@ -18,10 +23,10 @@ getWinningPattern();
 getCurrentPattern();
 module.exports = { listOfWinningPattern, listOfCurrentPattern };
 
-function startMusic() {
-  new Audio(
-    "https://drive.google.com/uc?id=12G3rsqjOGW4-XMZIFD76v8WDBpFFl2zs"
-  ).play();
+async function tileSfx() {
+  sfx.play();
+
+  //new Audio("./move.mp3").play();
 }
 
 function startTimer() {
@@ -181,6 +186,7 @@ function move(element) {
   let isMoveVaild = validMoves.includes(checkMoveNumber);
 
   if (isMoveVaild) {
+    tileSfx();
     arr[tileToMoveIndex] = finalTile;
     arr[finalTileIndex] = element;
 
