@@ -26,6 +26,7 @@ module.exports = { listOfWinningPattern, listOfCurrentPattern };
 
 function showCheat() {
   if (numberOfTileMoves > 3) {
+    //console.log("hello");
     selectButton.removeAttribute("hidden");
   }
 }

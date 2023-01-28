@@ -212,3 +212,34 @@ describe("Check if valid tiles move on click", () => {
     ).toBe(true);
   });
 });
+
+describe("Check for cheat button after 5 tile moves", () => {
+  test.only("", async () => {
+    let setup = await page.evaluate(() => {
+      cheat();
+    });
+
+    let clickValidTiles = await page.$eval("#board", (tile) => {
+      let validTiles = [];
+      validTiles.push(tile.children[5]);
+      validTiles.push(tile.children[4]);
+      validTiles.push(tile.children[1]);
+      validTiles.push(tile.children[0]);
+      validTiles.push(tile.children[3]);
+
+      for (var i = 0; i < validTiles.length; i++) {
+        validTiles[i].click();
+      }
+    });
+
+    let isCheatButtonHidden = await page.$eval("#buttonOnly", (button) => {
+      var result = button.hasAttribute("hidden");
+      return result;
+    });
+
+    expect(
+      isCheatButtonHidden,
+      "Should return false as the button shows after 5 moves"
+    ).toBe(false);
+  });
+});
