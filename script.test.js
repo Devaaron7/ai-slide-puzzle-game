@@ -60,6 +60,7 @@ describe("Checks that board was shuffled", () => {
     for (var i = 0; i < 8; i++) {
       if (listOfWinningPattern[i] == listOfCurrentPattern[i]) {
         counterCheck += 1;
+
         if (counterCheck == 8) {
           isBoardShuffled = false;
         } else {
