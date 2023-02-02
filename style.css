@@ -11,8 +11,8 @@
 #backgroundMovie {
   background-image: var(--sourceBkg);
   background-size: contain;
-  width: 1920px;
-  height: 1080px;
+  width: 1280px;
+  height: 720px;
   background-color: black;
   position: absolute;
   top: 63px;
@@ -40,8 +40,8 @@
 
 section {
   position: absolute;
-  top: 15%;
-  left: 28%;
+  top: 13%;
+  left: 16.5%;
 }
 
 .settings {
