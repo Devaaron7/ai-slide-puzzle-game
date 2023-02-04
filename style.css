@@ -9,7 +9,7 @@
 }
 
 body {
-  background-color: rgb(255, 255, 255);
+  background-color: rgb(6, 6, 6);
 }
 
 #backgroundMovie {
@@ -233,4 +233,20 @@ body {
   padding: 100px;
   border-style: solid;
   border-color: rgb(0, 0, 0);
+}
+
+/* Title Animations  */
+
+.ml4 {
+  position: relative;
+  font-weight: 900;
+  font-size: 4.5em;
+}
+.ml4 .letters {
+  position: absolute;
+  margin: auto;
+  left: 0;
+  top: 0.3em;
+  right: 0;
+  opacity: 0;
 }
