@@ -8,6 +8,10 @@
   --sourceBkg: url(https://media.tenor.com/wSoSBColwAoAAAAC/super-mario-world-mario.gif);
 }
 
+body {
+  background-color: rgb(255, 255, 255);
+}
+
 #backgroundMovie {
   background-image: var(--sourceBkg);
   background-size: contain;
@@ -15,8 +19,13 @@
   height: 720px;
   background-color: black;
   position: absolute;
-  top: 63px;
-  left: 203px;
+  /* top: 63px;
+  left: 203px; */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
 }
 
 .main-board {
@@ -28,21 +37,30 @@
   display: grid;
   margin: auto;
 
-  margin-bottom: 20px;
-
   gap: 1px;
   grid-template-columns: repeat(3, 1fr);
   background-color: black;
+  position: absolute;
+  top: -50px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
   /* height: 50px;
   width: 50px; */
   /* background-color: #2ecc71; */
 }
 
-section {
-  position: absolute;
-  top: 13%;
-  left: 16.5%;
-}
+/* section {
+  /* position: absolute; */
+/* top: 13%;
+  left: 16.5%; */
+/* top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto; 
+} */
 
 .settings {
   display: grid;
@@ -54,6 +72,11 @@ section {
   background-color: rgb(0, 0, 0);
   border-style: solid;
   border-color: rgb(0, 0, 0);
+  position: absolute;
+  top: 715px;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }
 
 #blank_page > p {
