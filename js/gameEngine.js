@@ -1,8 +1,8 @@
 "use strict";
 
-//const { tileBoard } = require("./arcade");
+//const fromArcade = require("./arcade");
 
-const tileBoard = render();
+//const tileBoard = renderArcade();
 const winningPattern = [...tileBoard.getElementById("board").children];
 shuffleBoard();
 const currentPattern = [...tileBoard.getElementById("board").children];
@@ -58,7 +58,11 @@ function startTimer() {
   seconds += 1;
 }
 
-function render() {
+function renderMainMenu() {
+  // TO-DO
+}
+
+function renderArcade() {
   // Create sections
   const section = document.createElement("section");
   const rootDiv = document.createElement("div");

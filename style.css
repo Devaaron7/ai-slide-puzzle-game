@@ -9,7 +9,79 @@
 }
 
 body {
-  background-color: rgb(6, 6, 6);
+  background-color: rgb(246, 243, 243);
+}
+
+#game-title {
+  width: 696px;
+  height: 195px;
+  /* background-color: #00000087; */
+  color: rgb(6, 6, 6);
+  position: absolute;
+  top: -658px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  text-align: center;
+  line-height: 100px;
+  font-size: 96px;
+  font-weight: 600;
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+}
+
+#game-arcade {
+  width: 383px;
+  height: 102px;
+  background-color: black;
+  color: rgb(251 247 247);
+  position: absolute;
+  top: 151px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  text-align: center;
+  line-height: 100px;
+  font-size: 96px;
+  font-weight: 600;
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+}
+
+#game-custom {
+  width: 383px;
+  height: 102px;
+  background-color: black;
+  color: rgb(251 247 247);
+  position: absolute;
+  top: 416px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  text-align: center;
+  line-height: 100px;
+  font-size: 96px;
+  font-weight: 600;
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+}
+
+#game-credits {
+  width: 383px;
+  height: 102px;
+  background-color: black;
+  color: rgb(251 247 247);
+  position: absolute;
+  top: 681px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  text-align: center;
+  line-height: 100px;
+  font-size: 96px;
+  font-weight: 600;
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
 }
 
 #backgroundMovie {

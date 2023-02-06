@@ -64,4 +64,4 @@ function render() {
 
 //const tileBoard = render();
 
-module.exports = { tileBoard };
+module.exports = { render };
