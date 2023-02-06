@@ -6,6 +6,8 @@
   --sourceImage: url(https://wallpapers.com/images/featured/fkq1k1pst35iab2c.jpg);
 
   --sourceBkg: url(https://media.tenor.com/wSoSBColwAoAAAAC/super-mario-world-mario.gif);
+
+  --sourceBkgMenu: url(https://i.kym-cdn.com/photos/images/original/000/597/841/500.gif);
 }
 
 body {
@@ -16,7 +18,7 @@ body {
   width: 696px;
   height: 195px;
   /* background-color: #00000087; */
-  color: rgb(6, 6, 6);
+  color: rgb(255, 255, 255);
   position: absolute;
   top: -658px;
   left: 0;
@@ -82,6 +84,28 @@ body {
   font-size: 96px;
   font-weight: 600;
   font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+}
+
+#game-bkg {
+  background-image: var(--sourceBkgMenu);
+  width: 100%;
+  background-size: contain;
+  height: 900px;
+
+  /*
+  background-color: black;
+  color: rgb(251 247 247);
+  position: absolute;
+  top: 681px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  text-align: center;
+  line-height: 100px;
+  font-size: 96px;
+  font-weight: 600;
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif; */
 }
 
 #backgroundMovie {
