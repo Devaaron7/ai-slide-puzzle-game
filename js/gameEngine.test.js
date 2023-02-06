@@ -6,7 +6,7 @@ async function sleep(seconds) {
   return new Promise((resolve) => setTimeout(resolve, seconds * 1000));
 }
 
-const { listOfWinningPattern, listOfCurrentPattern } = require("./script");
+const { listOfWinningPattern, listOfCurrentPattern } = require("./gameEngine");
 
 let browser;
 let page;
