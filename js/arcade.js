@@ -1,4 +1,5 @@
-function render() {
+function renderArcade() {
+  clearPage();
   // Create sections
   const section = document.createElement("section");
   const rootDiv = document.createElement("div");
@@ -13,6 +14,7 @@ function render() {
   var cheatButton = document.createElement("button");
 
   // Assign attributes to sections
+  section.setAttribute("id", "root");
   audioPlayer.controls = true;
   audioSource.setAttribute(
     "src",
@@ -20,7 +22,8 @@ function render() {
   );
   audioSource.setAttribute("type", "audio/mpeg");
   animatedBkg.setAttribute("id", "backgroundMovie");
-  cheatButton.setAttribute("onclick", "cheat();");
+  //cheatButton.setAttribute("onclick", "cheat();");
+  cheatButton.setAttribute("onclick", "renderMainMenu();");
   cheatButton.innerText = "CHEAT";
   cheatButton.style.fontSize = "40px";
   clockText.innerText = "TESTING";
@@ -45,9 +48,9 @@ function render() {
   }
 
   // add created elements to document
-  document.body.appendChild(audioPlayer);
+  section.appendChild(audioPlayer);
   audioPlayer.appendChild(audioSource);
-  document.body.appendChild(animatedBkg);
+  section.appendChild(animatedBkg);
   document.body.appendChild(section);
 
   section.appendChild(rootDiv);
@@ -62,6 +65,6 @@ function render() {
   return document;
 }
 
-//const tileBoard = render();
+const tileBoard = renderArcade();
 
-module.exports = { render };
+module.exports = { tileBoard };

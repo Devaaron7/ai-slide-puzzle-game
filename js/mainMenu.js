@@ -1,4 +1,5 @@
 function renderMainMenu() {
+  //clearPage();
   const section = document.createElement("section");
 
   var animatedMenuBkg = document.createElement("div");
@@ -10,6 +11,7 @@ function renderMainMenu() {
   animatedMenuBkg.setAttribute("id", "game-bkg");
   menuTitle.setAttribute("id", "game-title");
   menuArcade.setAttribute("id", "game-arcade");
+  menuArcade.setAttribute("onclick", "renderArcade();");
   menuCustom.setAttribute("id", "game-custom");
   menuCredits.setAttribute("id", "game-credits");
 
@@ -29,4 +31,4 @@ function renderMainMenu() {
   return document;
 }
 
-//const menu = renderMainMenu();
+const menu = renderMainMenu();
