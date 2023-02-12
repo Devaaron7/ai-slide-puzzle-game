@@ -1,5 +1,7 @@
+//const { engine } = require("./arcade");
+//import { move } from "./gameEngine";
 function renderArcade() {
-  clearPage();
+  // clearPage();
   // Create sections
   const section = document.createElement("section");
   const rootDiv = document.createElement("div");

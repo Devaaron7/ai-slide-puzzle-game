@@ -1,3 +1,5 @@
+//const { engine } = require("./gameEngine");
+//import { renderArcade } from "./arcade";
 function renderMainMenu() {
   //clearPage();
   const section = document.createElement("section");

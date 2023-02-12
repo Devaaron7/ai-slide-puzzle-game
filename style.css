@@ -7,7 +7,7 @@
 
   --sourceBkg: url(https://media.tenor.com/wSoSBColwAoAAAAC/super-mario-world-mario.gif);
 
-  --sourceBkgMenu: url(https://i.kym-cdn.com/photos/images/original/000/597/841/500.gif);
+  /* --sourceBkgMenu: url(https://i.kym-cdn.com/photos/images/original/000/597/841/500.gif); */
 }
 
 body {
@@ -88,6 +88,7 @@ body {
 
 #game-bkg {
   background-image: var(--sourceBkgMenu);
+  background-color: rgb(156, 156, 156);
   width: 100%;
   background-size: contain;
   height: 900px;

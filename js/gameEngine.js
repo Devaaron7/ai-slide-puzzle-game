@@ -25,7 +25,7 @@ let listOfWinningPattern = [];
 let listOfCurrentPattern = [];
 getWinningPattern();
 getCurrentPattern();
-module.exports = { listOfWinningPattern, listOfCurrentPattern };
+module.exports = { listOfWinningPattern, listOfCurrentPattern, move };
 
 function showCheat() {
   if (numberOfTileMoves > 3) {
