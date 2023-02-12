@@ -20,12 +20,28 @@ var sfx = new Audio(
 
 sfx.load();
 
+// var one = tileBoard.getElementById("board").children[0];
+
+// var text = document.createElement("p");
+
+//text.setAttribute("value", "1");
+
+// text.setAttribute("z-index", "1");
+// text.innerHTML = "1";
+
+// one.appendChild(text);
+
+//one.innerHTML = "1";
+
+// one.setAttribute("z-index", "0");
+//one.fontSize = "10";
+
 // variables & functions used in testing
 let listOfWinningPattern = [];
 let listOfCurrentPattern = [];
 getWinningPattern();
 getCurrentPattern();
-module.exports = { listOfWinningPattern, listOfCurrentPattern, move };
+module.exports = { listOfWinningPattern, listOfCurrentPattern };
 
 function showCheat() {
   if (numberOfTileMoves > 3) {
@@ -119,7 +135,7 @@ function renderArcade() {
   audioSource.setAttribute("type", "audio/mpeg");
   animatedBkg.setAttribute("id", "backgroundMovie");
   //cheatButton.setAttribute("onclick", "cheat();");
-  cheatButton.setAttribute("onclick", "renderMainMenu();");
+  cheatButton.setAttribute("onclick", "cheat();");
   cheatButton.innerText = "CHEAT";
   cheatButton.style.fontSize = "40px";
   clockText.innerText = "TESTING";
