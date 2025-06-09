@@ -152,6 +152,7 @@ function MainMenu({ onScreenChange }) {
         <div className="prompt-container" style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', zIndex: 1000 }}>
           <h2>Create Your Puzzle Image</h2>
           <p>Enter a description and we'll generate an image for your puzzle</p>
+          <p style={{ color: 'red' }}>**Please do not use any restricted terms**</p>
           
           <textarea
             className={`prompt-input ${!isValidPrompt ? 'invalid-prompt' : ''}`}
