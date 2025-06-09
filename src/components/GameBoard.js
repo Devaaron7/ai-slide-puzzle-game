@@ -13,23 +13,21 @@ function GameBoard({ onScreenChange, generatedImageUrl }) {
   
   // Initialize the board
   useEffect(() => {
-    initializeBoard();
-  }, []);
-  
-  // Use generated image URL when provided or changed
-  useEffect(() => {
+    // Only initialize once we have the image URL from props
     if (generatedImageUrl) {
+      console.log('Initializing board with generatedImageUrl:', generatedImageUrl);
       setImageUrl(generatedImageUrl);
       setImageLoaded(true);
-      
-      // Update all existing tiles with the new image URL
-      const updatedTiles = tiles.map(tile => ({
-        ...tile,
-        imageUrl: generatedImageUrl
-      }));
-      setTiles(updatedTiles);
+      initializeBoard();
     }
   }, [generatedImageUrl]);
+  
+  // Add a fallback initialization if no image URL is provided
+  useEffect(() => {
+    if (!generatedImageUrl) {
+      initializeBoard();
+    }
+  }, []);
 
   // Timer effect
   useEffect(() => {
@@ -52,8 +50,11 @@ function GameBoard({ onScreenChange, generatedImageUrl }) {
       id: index + 1,
       value: index < 5 ? index + 1 : null, // Last tile is empty
       position: index + 1,
-      visualPosition: index + 1 // Add visual position for CSS positioning
+      visualPosition: index + 1, // Add visual position for CSS positioning
+      imageUrl: imageUrl // Add image URL to each tile
     }));
+    
+    console.log('Initializing board with imageUrl:', imageUrl);
     
     // Shuffle the tiles (ensuring the puzzle is solvable)
     const shuffledTiles = shuffleTiles(initialTiles);
