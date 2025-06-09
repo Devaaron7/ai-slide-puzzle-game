@@ -4,9 +4,13 @@ import MainMenu from './components/MainMenu';
 
 function App() {
   const [currentScreen, setCurrentScreen] = useState('menu');
+  const [generatedImageUrl, setGeneratedImageUrl] = useState(null);
 
-  const handleScreenChange = (screen) => {
+  const handleScreenChange = (screen, imageUrl = null) => {
     setCurrentScreen(screen);
+    if (imageUrl) {
+      setGeneratedImageUrl(imageUrl);
+    }
   };
 
   return (
@@ -15,7 +19,10 @@ function App() {
         <MainMenu onScreenChange={handleScreenChange} />
       )}
       {currentScreen === 'arcade' && (
-        <GameBoard onScreenChange={handleScreenChange} />
+        <GameBoard 
+          onScreenChange={handleScreenChange} 
+          generatedImageUrl={generatedImageUrl}
+        />
       )}
     </div>
   );

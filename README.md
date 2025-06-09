@@ -1,6 +1,6 @@
 # Slide Puzzle Game - React Version
 
-A modern React implementation of the classic slide puzzle game.
+A modern React implementation of the classic slide puzzle game with AI image generation.
 
 ## Features
 
@@ -10,6 +10,8 @@ A modern React implementation of the classic slide puzzle game.
 - Cheat button that appears after a few moves
 - Background music and sound effects
 - Main menu with multiple game options
+- AI image generation using text prompts
+- Custom image loading from URL
 
 ## How to Play
 
@@ -25,17 +27,38 @@ A modern React implementation of the classic slide puzzle game.
 
 ### Installation
 
+#### Frontend
 ```bash
+npm install
+```
+
+#### Backend
+```bash
+cd server
 npm install
 ```
 
 ### Running the Development Server
 
+#### Frontend
 ```bash
 npm start
 ```
+This will start the frontend development server at http://localhost:3000
 
-This will start the development server at http://localhost:3000
+#### Backend
+```bash
+cd server
+node server.js
+```
+This will start the backend server at http://localhost:5000
+
+### Required Dependencies
+
+The backend server requires:
+- Node.js and npm
+- Chrome WebDriver for Selenium
+- Chrome browser installed
 
 ### Building for Production
 

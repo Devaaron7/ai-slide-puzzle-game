@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Tile from './Tile';
 
-function GameBoard({ onScreenChange }) {
+function GameBoard({ onScreenChange, generatedImageUrl }) {
   const [tiles, setTiles] = useState([]);
   const [minutes, setMinutes] = useState(0);
   const [seconds, setSeconds] = useState(0);
@@ -17,6 +17,14 @@ function GameBoard({ onScreenChange }) {
   useEffect(() => {
     initializeBoard();
   }, []);
+  
+  // Use generated image URL when provided
+  useEffect(() => {
+    if (generatedImageUrl) {
+      setTempImageUrl(generatedImageUrl);
+      loadImage(generatedImageUrl);
+    }
+  }, [generatedImageUrl]);
 
   // Timer effect
   useEffect(() => {
@@ -212,8 +220,10 @@ function GameBoard({ onScreenChange }) {
   };
   
   // Load image from URL
-  const loadImage = () => {
-    if (!tempImageUrl) {
+  const loadImage = (urlToLoad = null) => {
+    const imageUrlToLoad = urlToLoad || tempImageUrl;
+    
+    if (!imageUrlToLoad) {
       alert('Please enter an image URL');
       return;
     }
@@ -221,14 +231,14 @@ function GameBoard({ onScreenChange }) {
     // Test if the image can be loaded
     const testImage = new Image();
     testImage.onload = () => {
-      setImageUrl(tempImageUrl);
+      setImageUrl(imageUrlToLoad);
       setImageLoaded(true);
       setImageError(false);
       
       // Update all existing tiles with the new image URL
       const updatedTiles = tiles.map(tile => ({
         ...tile,
-        imageUrl: tempImageUrl
+        imageUrl: imageUrlToLoad
       }));
       setTiles(updatedTiles);
     };
@@ -237,7 +247,7 @@ function GameBoard({ onScreenChange }) {
       setImageLoaded(false);
       alert('Failed to load image. Please check the URL and try again.');
     };
-    testImage.src = tempImageUrl;
+    testImage.src = imageUrlToLoad;
   };
 
   // Format time for display (00:00)

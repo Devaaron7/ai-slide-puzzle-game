@@ -187,6 +187,87 @@ body {
   font-weight: bold;
 }
 
+/* Prompt Container Styles */
+.prompt-container {
+  background-color: rgba(0, 0, 0, 0.8);
+  padding: 20px;
+  border-radius: 10px;
+  width: 80%;
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+  color: white;
+}
+
+.prompt-container h2 {
+  margin-top: 0;
+  color: #4CAF50;
+  font-size: 24px;
+}
+
+.prompt-container p {
+  margin-bottom: 20px;
+  font-size: 16px;
+}
+
+.prompt-input {
+  width: 100%;
+  height: 100px;
+  padding: 10px;
+  border: 2px solid #4CAF50;
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.9);
+  font-size: 16px;
+  margin-bottom: 20px;
+  resize: none;
+}
+
+.prompt-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.menu-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.back-button {
+  background-color: #f44336;
+  color: white;
+}
+
+.back-button:hover {
+  background-color: #d32f2f;
+}
+
+.generate-button {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.generate-button:hover {
+  background-color: #45a049;
+}
+
+.generate-button:disabled,
+.back-button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.error-message {
+  color: #f44336;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
 /* Tile */
 .tile {
   background-color: #4a752c;
