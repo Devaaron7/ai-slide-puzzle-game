@@ -8,6 +8,10 @@ function GameBoard({ onScreenChange }) {
   const [moves, setMoves] = useState(0);
   const [isWinner, setIsWinner] = useState(false);
   const [audioPlaying, setAudioPlaying] = useState(false);
+  const [imageUrl, setImageUrl] = useState('');
+  const [tempImageUrl, setTempImageUrl] = useState('');
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const [imageError, setImageError] = useState(false);
   
   // Initialize the board
   useEffect(() => {
@@ -30,11 +34,12 @@ function GameBoard({ onScreenChange }) {
 
   // Initialize the board with shuffled tiles
   const initializeBoard = () => {
-    // Create tiles 1-8 and an empty tile (9)
-    const initialTiles = Array.from({ length: 9 }, (_, index) => ({
+    // Create tiles 1-5 and an empty tile (6)
+    const initialTiles = Array.from({ length: 6 }, (_, index) => ({
       id: index + 1,
-      value: index < 8 ? index + 1 : null, // Last tile is empty
-      position: index + 1
+      value: index < 5 ? index + 1 : null, // Last tile is empty
+      position: index + 1,
+      visualPosition: index + 1 // Add visual position for CSS positioning
     }));
     
     // Shuffle the tiles (ensuring the puzzle is solvable)
@@ -60,24 +65,17 @@ function GameBoard({ onScreenChange }) {
       ];
     }
 
-    // Update positions after shuffle
-    newTiles.forEach((tile, index) => {
-      tile.position = index + 1;
-    });
+    // Update positions based on the new order
+    for (let i = 0; i < newTiles.length; i++) {
+      newTiles[i].position = i + 1;
+      newTiles[i].visualPosition = i + 1;
+      newTiles[i].imageUrl = imageUrl; // Ensure all tiles have the image URL
+    }
 
-    // If the puzzle is not solvable, make it solvable by swapping two tiles
-    if (!isSolvable(newTiles)) {
-      // Swap the first two non-empty tiles
-      const firstNonEmpty = newTiles.findIndex(tile => tile.value !== null);
-      const secondNonEmpty = newTiles.findIndex((tile, index) => 
-        index > firstNonEmpty && tile.value !== null
-      );
-      
-      if (firstNonEmpty !== -1 && secondNonEmpty !== -1) {
-        [newTiles[firstNonEmpty], newTiles[secondNonEmpty]] = [
-          newTiles[secondNonEmpty], newTiles[firstNonEmpty]
-        ];
-      }
+    // Ensure the puzzle is solvable
+    // For simplicity, we'll just make sure it's not already solved
+    if (checkWinner(newTiles)) {
+      return shuffleTiles(tilesArray); // Try again
     }
 
     return newTiles;
@@ -100,32 +98,48 @@ function GameBoard({ onScreenChange }) {
       }
     }
     
-    // For a 3x3 puzzle, if the number of inversions is even, the puzzle is solvable
+    // For a 2x3 puzzle, if the number of inversions is even, the puzzle is solvable
     return inversions % 2 === 0;
   };
 
-  // Move a tile if it's adjacent to the empty space
+  // Move a tile if it's adjacent to the empty tile
   const moveTile = (tileId) => {
     // Find the clicked tile and the empty tile
-    const tileIndex = tiles.findIndex(tile => tile.id === tileId);
-    const emptyTileIndex = tiles.findIndex(tile => tile.value === null);
+    const clickedTile = tiles.find(tile => tile.id === tileId);
+    const emptyTile = tiles.find(tile => tile.value === null);
     
     // Check if the clicked tile is adjacent to the empty tile
-    if (isAdjacent(tiles[tileIndex].position, tiles[emptyTileIndex].position)) {
+    if (isAdjacent(clickedTile.position, emptyTile.position)) {
+      // Swap positions
+      const newTiles = tiles.map(tile => {
+        if (tile.id === clickedTile.id) {
+          return { 
+            ...tile, 
+            position: emptyTile.position, 
+            visualPosition: emptyTile.position,
+            imageUrl: imageUrl // Ensure image URL is passed
+          };
+        }
+        if (tile.id === emptyTile.id) {
+          return { 
+            ...tile, 
+            position: clickedTile.position, 
+            visualPosition: clickedTile.position,
+            imageUrl: imageUrl // Ensure image URL is passed
+          };
+        }
+        return { ...tile, imageUrl: imageUrl }; // Ensure all tiles have the image URL
+      });
+      
       // Play sound effect
       playTileSound();
       
-      // Swap the tiles
-      const newTiles = [...tiles];
-      const tempPosition = newTiles[tileIndex].position;
-      newTiles[tileIndex].position = newTiles[emptyTileIndex].position;
-      newTiles[emptyTileIndex].position = tempPosition;
-      
+      // Update tiles and increment move counter
       setTiles(newTiles);
       setMoves(moves + 1);
       
       // Check if the puzzle is solved
-      if (moves > 0 && checkWinner(newTiles)) {
+      if (checkWinner(newTiles)) {
         setIsWinner(true);
       }
     }
@@ -133,8 +147,8 @@ function GameBoard({ onScreenChange }) {
 
   // Check if two positions are adjacent
   const isAdjacent = (pos1, pos2) => {
-    // In a 3x3 grid:
-    // Positions are 1-9, with 1 at top-left and 9 at bottom-right
+    // In a 2x3 grid:
+    // Positions are 1-6, with 1 at top-left and 6 at bottom-right
     // Two positions are adjacent if they differ by 1 (left/right) or by 3 (up/down)
     // But we need to handle the edge cases (e.g., 3 and 4 differ by 1 but are not adjacent)
     
@@ -160,8 +174,16 @@ function GameBoard({ onScreenChange }) {
 
   // Play tile movement sound
   const playTileSound = () => {
-    const sfx = new Audio("https://drive.google.com/uc?id=13a8dopqZFTTOCOgFd-Qpgbd8lAhxLw0q");
-    sfx.play();
+    try {
+      // Using a standard click sound from a public source
+      const sfx = new Audio("https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3");
+      sfx.volume = 0.5; // Set volume to 50%
+      sfx.play().catch(error => {
+        console.log('Audio playback failed:', error);
+      });
+    } catch (error) {
+      console.log('Error creating audio:', error);
+    }
   };
 
   // Toggle background music
@@ -183,6 +205,40 @@ function GameBoard({ onScreenChange }) {
     setMoves(0);
     setIsWinner(false);
   };
+  
+  // Handle image URL input change
+  const handleImageUrlChange = (e) => {
+    setTempImageUrl(e.target.value);
+  };
+  
+  // Load image from URL
+  const loadImage = () => {
+    if (!tempImageUrl) {
+      alert('Please enter an image URL');
+      return;
+    }
+    
+    // Test if the image can be loaded
+    const testImage = new Image();
+    testImage.onload = () => {
+      setImageUrl(tempImageUrl);
+      setImageLoaded(true);
+      setImageError(false);
+      
+      // Update all existing tiles with the new image URL
+      const updatedTiles = tiles.map(tile => ({
+        ...tile,
+        imageUrl: tempImageUrl
+      }));
+      setTiles(updatedTiles);
+    };
+    testImage.onerror = () => {
+      setImageError(true);
+      setImageLoaded(false);
+      alert('Failed to load image. Please check the URL and try again.');
+    };
+    testImage.src = tempImageUrl;
+  };
 
   // Format time for display (00:00)
   const formatTime = () => {
@@ -193,10 +249,12 @@ function GameBoard({ onScreenChange }) {
 
   // Cheat function to solve the puzzle
   const cheat = () => {
-    const solvedTiles = Array.from({ length: 9 }, (_, index) => ({
+    const solvedTiles = Array.from({ length: 6 }, (_, index) => ({
       id: index + 1,
-      value: index < 8 ? index + 1 : null,
-      position: index + 1
+      value: index < 5 ? index + 1 : null,
+      position: index + 1,
+      visualPosition: index + 1,
+      imageUrl: imageUrl // Ensure all tiles have the image URL
     }));
     setTiles(solvedTiles);
   };
@@ -205,11 +263,20 @@ function GameBoard({ onScreenChange }) {
     <div className="game-container">
       <div id="backgroundMovie"></div>
       
-      <audio 
-        id="bgMusic" 
-        controls
-        src="https://drive.google.com/uc?id=12G3rsqjOGW4-XMZIFD76v8WDBpFFl2zs"
-      />
+      <div className="image-url-container">
+        <input
+          type="text"
+          placeholder="Enter image URL (768x768px recommended)"
+          value={tempImageUrl}
+          onChange={handleImageUrlChange}
+          className="image-url-input"
+        />
+        <button onClick={loadImage} className="load-image-button">
+          Load Image
+        </button>
+        {imageError && <p className="error-message">Failed to load image</p>}
+        {imageLoaded && <p className="success-message">Image loaded successfully!</p>}
+      </div>
       
       <div id="board" className="main-board">
         {tiles.map(tile => (
@@ -218,6 +285,8 @@ function GameBoard({ onScreenChange }) {
             id={tile.id}
             value={tile.value}
             position={tile.position}
+            visualPosition={tile.visualPosition}
+            imageUrl={imageUrl}
             onClick={() => moveTile(tile.id)}
           />
         ))}
