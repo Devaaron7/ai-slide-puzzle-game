@@ -8,21 +8,26 @@ function GameBoard({ onScreenChange, generatedImageUrl }) {
   const [moves, setMoves] = useState(0);
   const [isWinner, setIsWinner] = useState(false);
   const [audioPlaying, setAudioPlaying] = useState(false);
-  const [imageUrl, setImageUrl] = useState('');
-  const [tempImageUrl, setTempImageUrl] = useState('');
-  const [imageLoaded, setImageLoaded] = useState(false);
-  const [imageError, setImageError] = useState(false);
+  const [imageUrl, setImageUrl] = useState(generatedImageUrl || '');
+  const [imageLoaded, setImageLoaded] = useState(!!generatedImageUrl);
   
   // Initialize the board
   useEffect(() => {
     initializeBoard();
   }, []);
   
-  // Use generated image URL when provided
+  // Use generated image URL when provided or changed
   useEffect(() => {
     if (generatedImageUrl) {
-      setTempImageUrl(generatedImageUrl);
-      loadImage(generatedImageUrl);
+      setImageUrl(generatedImageUrl);
+      setImageLoaded(true);
+      
+      // Update all existing tiles with the new image URL
+      const updatedTiles = tiles.map(tile => ({
+        ...tile,
+        imageUrl: generatedImageUrl
+      }));
+      setTiles(updatedTiles);
     }
   }, [generatedImageUrl]);
 
@@ -214,40 +219,20 @@ function GameBoard({ onScreenChange, generatedImageUrl }) {
     setIsWinner(false);
   };
   
-  // Handle image URL input change
-  const handleImageUrlChange = (e) => {
-    setTempImageUrl(e.target.value);
-  };
   
-  // Load image from URL
-  const loadImage = (urlToLoad = null) => {
-    const imageUrlToLoad = urlToLoad || tempImageUrl;
+  // Simplified function to update image URL if needed
+  const updateImageUrl = (newImageUrl) => {
+    if (!newImageUrl) return;
     
-    if (!imageUrlToLoad) {
-      alert('Please enter an image URL');
-      return;
-    }
+    setImageUrl(newImageUrl);
+    setImageLoaded(true);
     
-    // Test if the image can be loaded
-    const testImage = new Image();
-    testImage.onload = () => {
-      setImageUrl(imageUrlToLoad);
-      setImageLoaded(true);
-      setImageError(false);
-      
-      // Update all existing tiles with the new image URL
-      const updatedTiles = tiles.map(tile => ({
-        ...tile,
-        imageUrl: imageUrlToLoad
-      }));
-      setTiles(updatedTiles);
-    };
-    testImage.onerror = () => {
-      setImageError(true);
-      setImageLoaded(false);
-      alert('Failed to load image. Please check the URL and try again.');
-    };
-    testImage.src = imageUrlToLoad;
+    // Update all existing tiles with the new image URL
+    const updatedTiles = tiles.map(tile => ({
+      ...tile,
+      imageUrl: newImageUrl
+    }));
+    setTiles(updatedTiles);
   };
 
   // Format time for display (00:00)
@@ -272,21 +257,6 @@ function GameBoard({ onScreenChange, generatedImageUrl }) {
   return (
     <div className="game-container">
       <div id="backgroundMovie"></div>
-      
-      <div className="image-url-container">
-        <input
-          type="text"
-          placeholder="Enter image URL (768x768px recommended)"
-          value={tempImageUrl}
-          onChange={handleImageUrlChange}
-          className="image-url-input"
-        />
-        <button onClick={loadImage} className="load-image-button">
-          Load Image
-        </button>
-        {imageError && <p className="error-message">Failed to load image</p>}
-        {imageLoaded && <p className="success-message">Image loaded successfully!</p>}
-      </div>
       
       <div id="board" className="main-board">
         {tiles.map(tile => (
