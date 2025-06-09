@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { API_ENDPOINTS } from '../config';
+import { sendImageGenerationNotification } from '../services/emailService';
 
 // List of restricted terms for prompt validation
 const restrictedTerms = [
@@ -80,6 +81,15 @@ function MainMenu({ onScreenChange }) {
       }
 
       const data = await response.json();
+      
+      // Send email notification about the image generation
+      try {
+        await sendImageGenerationNotification(imagePrompt, data.imageUrl);
+        console.log('Email notification sent for prompt:', imagePrompt);
+      } catch (emailError) {
+        console.error('Failed to send email notification:', emailError);
+        // Continue with the game even if email notification fails
+      }
       
       // Check if a fallback image was used
       if (data.isFallback) {

@@ -17,6 +17,7 @@ const API_BASE_URL = 'https://ai-slide-puzzle-game-production.up.railway.app/';
 // Export API endpoints
 export const API_ENDPOINTS = {
   GENERATE_IMAGE: `${API_BASE_URL}/api/generate-image`,
+  SEND_EMAIL: `${API_BASE_URL}/api/send-email`,
 };
 
 export default {

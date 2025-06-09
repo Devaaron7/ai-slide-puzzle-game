@@ -42,11 +42,13 @@
   },
   "homepage": "https://github.com/Devaaron7/ai-slide-puzzle-game",
   "dependencies": {
+    "@emailjs/browser": "^4.4.1",
     "@types/jest": "^29.2.5",
     "colorette": "^2.0.20",
     "concurrently": "^8.2.2",
     "cors": "^2.8.5",
     "css-loader": "^6.7.3",
+    "emailjs-com": "^3.2.0",
     "http-server": "^14.1.1",
     "jsdom": "^21.0.0",
     "node-fetch": "2.6.7",

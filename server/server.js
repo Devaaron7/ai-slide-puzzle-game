@@ -4,6 +4,7 @@ const dotenv = require('dotenv');
 const fs = require('fs');
 const path = require('path');
 const fetch = require('node-fetch');
+const emailjs = require('@emailjs/browser');
 
 // Load environment variables from .env file
 dotenv.config({ path: path.resolve(__dirname, '..', '.env') });
@@ -121,6 +122,48 @@ app.use(express.static(path.join(__dirname, '..', 'build')));
 // Catch-all route to serve React's index.html for unknown paths
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '..', 'build', 'index.html'));
+});
+
+// Email notification endpoint
+app.post('/api/send-email', async (req, res) => {
+  const { text_prompt, image_url } = req.body;
+  
+  // Check if email notifications are enabled
+  if (process.env.REACT_APP_EMAILJS_ENABLED !== 'true') {
+    return res.status(200).json({ message: 'Email notifications are disabled' });
+  }
+
+  // Validate required environment variables
+  if (!process.env.REACT_APP_EMAILJS_SERVICE_ID || 
+      !process.env.REACT_APP_EMAILJS_TEMPLATE_ID || 
+      !process.env.REACT_APP_EMAILJS_PUBLIC_KEY) {
+    return res.status(500).json({ error: 'Email service not properly configured' });
+  }
+
+  try {
+    // Initialize EmailJS with public key
+    emailjs.init(process.env.REACT_APP_EMAILJS_PUBLIC_KEY);
+    
+    // Prepare template parameters
+    const templateParams = {
+      text_prompt: text_prompt || 'No prompt provided',
+      timestamp: new Date().toLocaleString(),
+      app_url: 'https://ai-slide-puzzle-game-production.up.railway.app/'
+    };
+
+    // Send the email
+    await emailjs.send(
+      process.env.REACT_APP_EMAILJS_SERVICE_ID,
+      process.env.REACT_APP_EMAILJS_TEMPLATE_ID,
+      templateParams
+    );
+
+    console.log('Email notification sent successfully');
+    return res.status(200).json({ success: true });
+  } catch (error) {
+    console.error('Failed to send email notification:', error);
+    return res.status(500).json({ error: 'Failed to send email notification' });
+  }
 });
 
 // Start the server
