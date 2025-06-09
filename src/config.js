@@ -16,9 +16,7 @@ const isDev = getEnv('NODE_ENV') !== 'production';
 
 // In development, use localhost
 // In production, use the Railway URL or empty string for relative URLs
-const API_BASE_URL = isDev 
-  ? 'http://localhost:5000' 
-  : window.location.origin; // Use the same origin in production
+const API_BASE_URL = 'https://ai-slide-puzzle-game-production.up.railway.app/' 
 
 // Export API endpoints
 export const API_ENDPOINTS = {

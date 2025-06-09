@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Tile from './Tile';
 
 function GameBoard({ onScreenChange, generatedImageUrl }) {
@@ -10,6 +10,46 @@ function GameBoard({ onScreenChange, generatedImageUrl }) {
   const [audioPlaying, setAudioPlaying] = useState(false);
   const [imageUrl, setImageUrl] = useState(generatedImageUrl || '');
   const [imageLoaded, setImageLoaded] = useState(!!generatedImageUrl);
+  
+  // Create a reference to the game state for testing
+  const gameStateRef = useRef({
+    tiles,
+    minutes,
+    seconds,
+    moves,
+    isWinner,
+    imageUrl
+  });
+  
+  // Update the ref whenever state changes
+  useEffect(() => {
+    gameStateRef.current = {
+      tiles,
+      minutes,
+      seconds,
+      moves,
+      isWinner,
+      imageUrl
+    };
+  }, [tiles, minutes, seconds, moves, isWinner, imageUrl]);
+  
+  // Expose the game instance for testing
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      window.__GAME_INSTANCE__ = {
+        simulateWin: () => {
+          setIsWinner(true);
+        },
+        getState: () => gameStateRef.current
+      };
+    }
+    
+    return () => {
+      if (typeof window !== 'undefined') {
+        delete window.__GAME_INSTANCE__;
+      }
+    };
+  }, []);
   
   // Initialize the board
   useEffect(() => {
