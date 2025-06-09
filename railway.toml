@@ -1,7 +1,17 @@
 [build]
 builder = "nixpacks"
+buildCommand = "npm install && npm run build"
 
 [deploy]
-startCommand = "npm run server"
-restartPolicyType = "on-failure"
-restartPolicyMaxRetries = 10
+startCommand = "node server/server.js"
+
+# Configure the web service
+[webService]
+  # The port your web service listens on
+  port = 8080
+  
+  # The directory containing your built frontend files
+  staticDir = "build"
+  
+  # The command to start your Node.js server
+  startCommand = "node server/server.js"

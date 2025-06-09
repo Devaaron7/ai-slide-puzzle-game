@@ -1,0 +1,9 @@
+[build]
+builder = "nixpacks"
+
+[phases]
+install = { cmds = ["npm install --no-audit"] }
+build = { cmds = ["npm run build"] }
+
+[start]
+cmd = "node server/server.js"

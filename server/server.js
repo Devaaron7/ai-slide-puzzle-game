@@ -3,12 +3,25 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 const fs = require('fs');
 const path = require('path');
+const fetch = require('node-fetch');
 
 // Load environment variables from .env file
 dotenv.config({ path: path.resolve(__dirname, '..', '.env') });
 
-const app = express();
+// Set up port for server
 const port = process.env.PORT || 5000;
+
+// Create Express app
+const app = express();
+
+// Enable CORS
+app.use(cors());
+
+// Parse JSON request bodies
+app.use(express.json());
+
+// Serve static files from the React app
+app.use(express.static(path.join(__dirname, '..', 'build')));
 
 // Fallback image URLs
 const FALLBACK_IMAGES = [
@@ -35,7 +48,7 @@ async function queryHuggingFace(data) {
       "https://router.huggingface.co/together/v1/images/generations",
       {
         headers: {
-          Authorization: `Bearer ${process.env.HF_TOKEN}`,
+          Authorization: `Bearer ${process.env.REACT_APP_HF_TOKEN}`,
           "Content-Type": "application/json",
         },
         method: "POST",
@@ -48,7 +61,6 @@ async function queryHuggingFace(data) {
       throw new Error(`API request failed: ${response.status} ${errorText}`);
     }
     
-    // Parse the response as JSON
     const result = await response.json();
     return result;
   } catch (error) {
@@ -57,7 +69,7 @@ async function queryHuggingFace(data) {
   }
 }
 
-// Generate image from text prompt
+// API endpoint
 app.post('/api/generate-image', async (req, res) => {
   const { prompt } = req.body;
   
@@ -66,36 +78,24 @@ app.post('/api/generate-image', async (req, res) => {
   }
   
   try {
-    // Prepare the data for Hugging Face API
     const data = {
       prompt: prompt,
-      response_format: "url", // Get URL instead of base64 for easier handling
+      response_format: "url",
       model: "black-forest-labs/FLUX.1-dev",
     };
     
     try {
-      // Query Hugging Face API
       const result = await queryHuggingFace(data);
-      
-      // Extract the image URL from the response based on the actual API structure
       const imageUrl = result.data?.[0]?.url;
       
-      if (!imageUrl) {
-        throw new Error('No image URL returned from API');
-      }
+      if (!imageUrl) throw new Error('No image URL returned from API');
       
-      console.log('Response structure:', JSON.stringify(result, null, 2));
-      console.log(`Image generated successfully: ${imageUrl}`);
-      
-      // Return the image URL
+      console.log('Image generated successfully:', imageUrl);
       return res.json({ imageUrl });
       
     } catch (apiError) {
-      // If the API call fails, use a fallback image
       console.error('API error, using fallback image:', apiError);
       const fallbackImageUrl = getRandomFallbackImage();
-      console.log(`Using fallback image: ${fallbackImageUrl}`);
-      
       return res.json({ 
         imageUrl: fallbackImageUrl,
         isFallback: true,
@@ -105,11 +105,7 @@ app.post('/api/generate-image', async (req, res) => {
     
   } catch (error) {
     console.error('Error in request handling:', error);
-    
-    // Use fallback image as a last resort
     const fallbackImageUrl = getRandomFallbackImage();
-    console.log(`Using fallback image as last resort: ${fallbackImageUrl}`);
-    
     return res.json({ 
       imageUrl: fallbackImageUrl,
       isFallback: true,
@@ -117,6 +113,14 @@ app.post('/api/generate-image', async (req, res) => {
       error: error.message
     });
   }
+});
+
+// Serve React frontend static files from the /build folder
+app.use(express.static(path.join(__dirname, '..', 'build')));
+
+// Catch-all route to serve React's index.html for unknown paths
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', 'build', 'index.html'));
 });
 
 // Start the server
