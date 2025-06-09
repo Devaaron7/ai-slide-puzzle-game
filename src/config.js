@@ -11,13 +11,19 @@ const getEnv = (key, defaultValue = '') => {
 const isDevelopment = getEnv('NODE_ENV') !== 'production';
 
 // Set the base URL for API requests
-// In production, this will be the same domain as the frontend (empty string for relative URLs)
-const API_BASE_URL = 'https://ai-slide-puzzle-game-production.up.railway.app/';
+// Determine environment and set appropriate API base URL
+const isDev = getEnv('NODE_ENV') !== 'production';
+
+// In development, use localhost
+// In production, use the Railway URL or empty string for relative URLs
+const API_BASE_URL = isDev 
+  ? 'http://localhost:5000' 
+  : window.location.origin; // Use the same origin in production
 
 // Export API endpoints
 export const API_ENDPOINTS = {
   GENERATE_IMAGE: `${API_BASE_URL}/api/generate-image`,
-  SEND_EMAIL: `${API_BASE_URL}/api/send-email`,
+  SEND_EMAIL: `${API_BASE_URL}/api/send-email`
 };
 
 export default {

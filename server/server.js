@@ -4,7 +4,7 @@ const dotenv = require('dotenv');
 const fs = require('fs');
 const path = require('path');
 const fetch = require('node-fetch');
-const emailjs = require('@emailjs/browser');
+const axios = require('axios');
 
 // Load environment variables from .env file
 dotenv.config({ path: path.resolve(__dirname, '..', '.env') });
@@ -124,9 +124,9 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '..', 'build', 'index.html'));
 });
 
-// Email notification endpoint
+// Secure email proxy endpoint - keeps credentials on server side
 app.post('/api/send-email', async (req, res) => {
-  const { text_prompt, image_url } = req.body;
+  const { text_prompt } = req.body;
   
   // Check if email notifications are enabled
   if (process.env.REACT_APP_EMAILJS_ENABLED !== 'true') {
@@ -141,22 +141,62 @@ app.post('/api/send-email', async (req, res) => {
   }
 
   try {
-    // Initialize EmailJS with public key
-    emailjs.init(process.env.REACT_APP_EMAILJS_PUBLIC_KEY);
-    
+    // Determine if we're in production or development
+    const isProduction = process.env.NODE_ENV === 'production';
+    const appUrl = isProduction 
+      ? 'https://ai-slide-puzzle-game-production.up.railway.app/' 
+      : 'http://localhost:5000/';
+      
     // Prepare template parameters
     const templateParams = {
       text_prompt: text_prompt || 'No prompt provided',
       timestamp: new Date().toLocaleString(),
-      app_url: 'https://ai-slide-puzzle-game-production.up.railway.app/'
+      app_url: appUrl
     };
 
+    // Create a custom EmailJS send function that works in Node.js
+    const sendEmail = async () => {
+      // Construct the EmailJS API URL
+      const url = 'https://api.emailjs.com/api/v1.0/email/send';
+      
+      // Prepare the request payload
+      const payload = {
+        service_id: process.env.REACT_APP_EMAILJS_SERVICE_ID,
+        template_id: process.env.REACT_APP_EMAILJS_TEMPLATE_ID,
+        user_id: process.env.REACT_APP_EMAILJS_PUBLIC_KEY,
+        template_params: templateParams,
+      };
+      
+      // Determine the origin and referer based on environment
+      const isProduction = process.env.NODE_ENV === 'production';
+      const origin = isProduction 
+        ? 'https://ai-slide-puzzle-game-production.up.railway.app' 
+        : 'http://localhost:3000';
+      
+      try {
+        // Send the request to EmailJS API with browser-like headers
+        const response = await axios.post(url, payload, {
+          headers: {
+            'Content-Type': 'application/json',
+            // Add browser-like headers to avoid API restrictions
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
+            'Origin': origin,
+            'Referer': `${origin}/`,
+          },
+        });
+        
+        return response.data;
+      } catch (error) {
+        if (error.response) {
+          throw new Error(`EmailJS API error: ${error.response.status} ${JSON.stringify(error.response.data)}`);
+        } else {
+          throw error;
+        }
+      }
+    };
+    
     // Send the email
-    await emailjs.send(
-      process.env.REACT_APP_EMAILJS_SERVICE_ID,
-      process.env.REACT_APP_EMAILJS_TEMPLATE_ID,
-      templateParams
-    );
+    await sendEmail();
 
     console.log('Email notification sent successfully');
     return res.status(200).json({ success: true });

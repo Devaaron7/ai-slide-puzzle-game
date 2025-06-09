@@ -1,6 +1,7 @@
 /**
  * Email notification service for the slide puzzle game
- * Uses EmailJS for sending notifications when users generate images
+ * Uses a secure server-side proxy to send emails via EmailJS
+ * This approach keeps API credentials secure on the server
  */
 
 import { API_ENDPOINTS } from '../config';
@@ -12,7 +13,8 @@ import { API_ENDPOINTS } from '../config';
  * @returns {Promise<boolean>} Success status
  */
 export const sendImageGenerationNotification = async (textPrompt, imageUrl = null) => {
-  // Check if email notifications are enabled
+  // Check if email notifications are enabled in the frontend
+  // This is just a UI check, the server will do the actual validation
   if (process.env.REACT_APP_EMAILJS_ENABLED !== 'true') {
     console.log('Email notifications are disabled');
     return false;
@@ -21,7 +23,9 @@ export const sendImageGenerationNotification = async (textPrompt, imageUrl = nul
   try {
     console.log(`Sending notification for image generation with prompt: ${textPrompt}`);
     
-    const response = await fetch(`${API_ENDPOINTS.SEND_EMAIL}`, {
+    // Call our secure server-side proxy endpoint
+    // This keeps all credentials on the server side
+    const response = await fetch(API_ENDPOINTS.SEND_EMAIL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
