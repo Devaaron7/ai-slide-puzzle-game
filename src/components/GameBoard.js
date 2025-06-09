@@ -31,17 +31,20 @@ function GameBoard({ onScreenChange, generatedImageUrl }) {
 
   // Timer effect
   useEffect(() => {
-    const timer = setInterval(() => {
-      if (seconds === 59) {
-        setMinutes(minutes + 1);
-        setSeconds(0);
-      } else {
-        setSeconds(seconds + 1);
-      }
-    }, 1000);
+    // Only run the timer if the puzzle is not solved
+    if (!isWinner) {
+      const timer = setInterval(() => {
+        if (seconds === 59) {
+          setMinutes(minutes + 1);
+          setSeconds(0);
+        } else {
+          setSeconds(seconds + 1);
+        }
+      }, 1000);
 
-    return () => clearInterval(timer);
-  }, [seconds, minutes]);
+      return () => clearInterval(timer);
+    }
+  }, [seconds, minutes, isWinner]);
 
   // Initialize the board with shuffled tiles
   const initializeBoard = () => {
@@ -279,7 +282,7 @@ function GameBoard({ onScreenChange, generatedImageUrl }) {
         </div>
         <div id="cheat">
           {moves > 3 && !isWinner && (
-            <button id="buttonOnly" onClick={cheat}>CHEAT</button>
+            <button id="buttonOnly" onClick={cheat}>Auto Solve</button>
           )}
           {isWinner && (
             <button onClick={resetGame}>PLAY AGAIN</button>

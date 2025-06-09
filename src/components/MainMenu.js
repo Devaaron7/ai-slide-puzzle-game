@@ -17,6 +17,9 @@ function MainMenu({ onScreenChange }) {
     console.log('showPromptInput state changed:', showPromptInput);
   }, [showPromptInput]);
 
+  const [fallbackNotice, setFallbackNotice] = useState(false);
+  const [fallbackMessage, setFallbackMessage] = useState('');
+
   const handlePromptSubmit = async () => {
     if (!imagePrompt.trim()) {
       setError('Please enter a description for your image');
@@ -25,6 +28,8 @@ function MainMenu({ onScreenChange }) {
 
     setIsLoading(true);
     setError(null);
+    setFallbackNotice(false);
+    setFallbackMessage('');
 
     try {
       // Call our backend API to generate an image
@@ -42,11 +47,22 @@ function MainMenu({ onScreenChange }) {
 
       const data = await response.json();
       
-      // Small delay to show loading message before transitioning
-      setTimeout(() => {
-        // Pass the image URL to the game board
-        onScreenChange('arcade', data.imageUrl);
-      }, 1000);
+      // Check if a fallback image was used
+      if (data.isFallback) {
+        setFallbackNotice(true);
+        setFallbackMessage('Image generation failed. Using a fallback image instead.');
+        // Show fallback notice for 3 seconds before transitioning
+        setTimeout(() => {
+          // Pass the image URL to the game board
+          onScreenChange('arcade', data.imageUrl);
+        }, 3000);
+      } else {
+        // Small delay to show loading message before transitioning
+        setTimeout(() => {
+          // Pass the image URL to the game board
+          onScreenChange('arcade', data.imageUrl);
+        }, 1000);
+      }
     } catch (err) {
       console.error('Error generating image:', err);
       setError('Failed to generate image. Please try again.');
@@ -57,14 +73,25 @@ function MainMenu({ onScreenChange }) {
   return (
     <section className="main-menu">
       <div id="game-bkg"></div>
-      <div id="game-title">SLIDE PUZZLE GAME</div>
+      <div id="game-title">AI Slide Puzzle Game</div>
       
       {/* Loading Screen */}
       {isLoading && (
         <div className="loading-screen">
-          <div className="loading-text">Generating Your Image</div>
-          <div className="loader"></div>
-          <div className="loading-subtext">Loading your game...</div>
+          {fallbackNotice ? (
+            <>
+              <div className="loading-text fallback-notice">Notice</div>
+              <div className="fallback-message">{fallbackMessage}</div>
+              <div className="loader"></div>
+              <div className="loading-subtext">Loading your game with a fallback image...</div>
+            </>
+          ) : (
+            <>
+              <div className="loading-text">Generating Your Image</div>
+              <div className="loader"></div>
+              <div className="loading-subtext">Loading your game...</div>
+            </>
+          )}
         </div>
       )}
       
@@ -75,21 +102,15 @@ function MainMenu({ onScreenChange }) {
             onClick={handleArcadeClick}
             className="menu-item"
           >
-            ARCADE
+            Enter A Prompt
           </div>
-          <div 
-            id="game-custom" 
-            onClick={() => onScreenChange('custom')}
-            className="menu-item"
-          >
-            CUSTOM
-          </div>
+        
           <div 
             id="game-credits" 
-            onClick={() => onScreenChange('credits')}
+            onClick={() => window.open('https://github.com/Devaaron7/aaron-tracy-resume/blob/main/Aaron_Tracy_Software_Engineer_2025.pdf', '_blank')}
             className="menu-item"
           >
-            CREDITS
+            Meet The Developer
           </div>
           
           
