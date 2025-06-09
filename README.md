@@ -19,6 +19,30 @@ A modern React implementation of the classic slide puzzle game with AI image gen
 2. Arrange the tiles in numerical order (1-8) with the empty space in the bottom right
 3. Try to solve the puzzle in as few moves as possible!
 
+## Deployment
+
+### Railway
+
+1. Install the [Railway CLI](https://docs.railway.app/develop/cli):
+   ```bash
+   npm i -g @railway/cli
+   ```
+
+2. Link your project to Railway:
+   ```bash
+   railway link
+   ```
+
+3. Set up environment variables in the Railway dashboard:
+   - `PORT`: The port your server should listen on (Railway will provide this)
+   - `NODE_ENV`: Set to `production`
+   - `HF_TOKEN`: Your Hugging Face API token (if using AI image generation)
+
+4. Deploy your application:
+   ```bash
+   railway up
+   ```
+
 ## Development
 
 ### Prerequisites
