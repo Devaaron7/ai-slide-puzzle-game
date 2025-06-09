@@ -42,8 +42,11 @@ function MainMenu({ onScreenChange }) {
 
       const data = await response.json();
       
-      // Pass the image URL to the game board
-      onScreenChange('arcade', data.imageUrl);
+      // Small delay to show loading message before transitioning
+      setTimeout(() => {
+        // Pass the image URL to the game board
+        onScreenChange('arcade', data.imageUrl);
+      }, 1000);
     } catch (err) {
       console.error('Error generating image:', err);
       setError('Failed to generate image. Please try again.');
@@ -56,10 +59,14 @@ function MainMenu({ onScreenChange }) {
       <div id="game-bkg"></div>
       <div id="game-title">SLIDE PUZZLE GAME</div>
       
-      {/* Debug info */}
-      <div style={{ position: 'absolute', top: '10px', right: '10px', background: 'rgba(0,0,0,0.7)', color: 'white', padding: '10px', borderRadius: '5px', zIndex: 1000 }}>
-        showPromptInput: {showPromptInput ? 'true' : 'false'}
-      </div>
+      {/* Loading Screen */}
+      {isLoading && (
+        <div className="loading-screen">
+          <div className="loading-text">Generating Your Image</div>
+          <div className="loader"></div>
+          <div className="loading-subtext">Loading your game...</div>
+        </div>
+      )}
       
       {!showPromptInput ? (
         <div>
@@ -85,13 +92,7 @@ function MainMenu({ onScreenChange }) {
             CREDITS
           </div>
           
-          {/* Direct test button */}
-          <button 
-            style={{ position: 'absolute', bottom: '20px', left: '20px', padding: '10px', background: 'red', color: 'white' }}
-            onClick={() => setShowPromptInput(true)}
-          >
-            TEST PROMPT
-          </button>
+          
         </div>
       ) : (
         <div className="prompt-container" style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', zIndex: 1000 }}>
