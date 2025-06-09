@@ -11,8 +11,9 @@
     "test": "jest --env=jsdom",
     "server": "node server/server.js",
     "heroku-postbuild": "npm install && npm run build",
-    "predeploy": "npm run build",
-  "deploy": "gh-pages -d build"
+    "predeploy": "npm run build && npm run build",
+    "deploy": "gh-pages -d build",
+    "postdeploy": "echo 'Deployment complete! Your site should be live at https://devaaron7.github.io/ai-slide-puzzle-game'"
   },
   "engines": {
     "node": ">=14.0.0"
