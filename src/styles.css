@@ -177,9 +177,23 @@ body {
 }
 
 .error-message {
-  color: #ff4d4d;
-  margin-top: 5px;
+  color: #e74c3c;
+  margin-bottom: 15px;
   font-weight: bold;
+}
+
+.validation-message {
+  color: #ff9800;
+  margin-bottom: 15px;
+  font-weight: bold;
+  padding: 8px 12px;
+  background-color: rgba(255, 152, 0, 0.1);
+  border-left: 3px solid #ff9800;
+  border-radius: 3px;
+}
+
+.invalid-prompt {
+  border-color: #d31515 !important;
 }
 
 .success-message {

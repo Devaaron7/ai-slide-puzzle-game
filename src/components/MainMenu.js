@@ -1,10 +1,19 @@
 import React, { useState, useEffect } from 'react';
 
+// List of restricted terms for prompt validation
+const restrictedTerms = [
+  'nude', 'naked', 'porn', 'pornographic', 'sexual', 'explicit', 
+  'violence', 'gore', 'bloody', 'kill', 'murder', 'terrorist',
+  'racism', 'racist', 'nazi', 'nsfw', 'offensive', 'illegal', 'child', 'hentai'
+  // Add more terms as needed
+];
+
 function MainMenu({ onScreenChange }) {
   const [showPromptInput, setShowPromptInput] = useState(false);
   const [imagePrompt, setImagePrompt] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [isValidPrompt, setIsValidPrompt] = useState(true);
 
   const handleArcadeClick = () => {
     console.log('Arcade clicked, setting showPromptInput to true');
@@ -16,6 +25,24 @@ function MainMenu({ onScreenChange }) {
   useEffect(() => {
     console.log('showPromptInput state changed:', showPromptInput);
   }, [showPromptInput]);
+  
+  // Validate prompt against restricted terms
+  const validatePrompt = (prompt) => {
+    const lowercasePrompt = prompt.toLowerCase();
+    for (const term of restrictedTerms) {
+      if (lowercasePrompt.includes(term)) {
+        return false;
+      }
+    }
+    return true;
+  };
+  
+  // Handle prompt input change
+  const handlePromptChange = (e) => {
+    const newPrompt = e.target.value;
+    setImagePrompt(newPrompt);
+    setIsValidPrompt(validatePrompt(newPrompt));
+  };
 
   const [fallbackNotice, setFallbackNotice] = useState(false);
   const [fallbackMessage, setFallbackMessage] = useState('');
@@ -23,6 +50,12 @@ function MainMenu({ onScreenChange }) {
   const handlePromptSubmit = async () => {
     if (!imagePrompt.trim()) {
       setError('Please enter a description for your image');
+      return;
+    }
+    
+    // Check for restricted terms
+    if (!isValidPrompt) {
+      setError('Please revise your prompt before sending your request.');
       return;
     }
 
@@ -121,12 +154,16 @@ function MainMenu({ onScreenChange }) {
           <p>Enter a description and we'll generate an image for your puzzle</p>
           
           <textarea
-            className="prompt-input"
+            className={`prompt-input ${!isValidPrompt ? 'invalid-prompt' : ''}`}
             placeholder="Describe the image you want (e.g., 'a colorful landscape with mountains and a lake')"
             value={imagePrompt}
-            onChange={(e) => setImagePrompt(e.target.value)}
+            onChange={handlePromptChange}
             disabled={isLoading}
           />
+          
+          {!isValidPrompt && (
+            <p className="validation-message">Your prompt contains restricted content. Please revise it.</p>
+          )}
           
           {error && <p className="error-message">{error}</p>}
           
@@ -141,7 +178,7 @@ function MainMenu({ onScreenChange }) {
             <button 
               className="menu-button generate-button" 
               onClick={handlePromptSubmit}
-              disabled={isLoading}
+              disabled={isLoading || !isValidPrompt || !imagePrompt.trim()}
             >
               {isLoading ? 'Generating...' : 'Generate Image'}
             </button>
