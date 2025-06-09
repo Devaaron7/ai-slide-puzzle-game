@@ -302,8 +302,14 @@ function GameBoard({ onScreenChange, generatedImageUrl }) {
           <div className="winner-message">
             <h2>Congratulations!</h2>
             <p>You solved the puzzle in {moves} moves and {formatTime()}!</p>
-            <button onClick={resetGame}>Play Again</button>
-            <button onClick={() => onScreenChange('menu')}>Main Menu</button>
+            <div className="winner-buttons">
+              <button onClick={resetGame}>Play Again</button>
+              <button onClick={() => onScreenChange('menu')}>Main Menu</button>
+            </div>
+            <div className="complete-image-container">
+              <h3>Complete Image:</h3>
+              <div className="complete-image" style={{ backgroundImage: `url(${imageUrl})` }}></div>
+            </div>
           </div>
         </div>
       )}

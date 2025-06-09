@@ -10,7 +10,8 @@ function Tile({ id, value, position, visualPosition, imageUrl, onClick }) {
     const baseStyle = {
       gridRow: row,
       gridColumn: col,
-      transition: 'all 0.3s ease-in-out'
+      transition: 'all 0.3s ease-in-out',
+      position: 'relative' // Add position relative to allow absolute positioning of children
     };
     
     // If we have an image URL, add background image styling
@@ -70,7 +71,8 @@ function Tile({ id, value, position, visualPosition, imageUrl, onClick }) {
       style={getStyle()}
       onClick={onClick}
     >
-      {!imageUrl && <span className="tile-number">{value}</span>}
+      {/* Always show the tile number */}
+      <span className="tile-number">{value}</span>
     </div>
   );
 }
