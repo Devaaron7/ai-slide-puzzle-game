@@ -1,0 +1,17 @@
+[phases.setup]
+nixPkgs = ["nodejs_20", "npm-8_x"]
+
+[phases.install]
+cmds = ["npm install --no-audit"]
+packageManager = "npm"
+
+[phases.build]
+cmds = ["npm run build"]
+
+[start]
+cmd = "node server/server.js"
+
+[nixpacks]
+installCmd = "npm install --no-audit"
+no-install = false
+plan-path = "plan.toml"
