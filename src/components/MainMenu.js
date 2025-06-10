@@ -151,7 +151,7 @@ function MainMenu({ onScreenChange }) {
         
           <div 
             id="game-credits" 
-            onClick={() => window.open('https://github.com/Devaaron7/aaron-tracy-resume/blob/main/Aaron_Tracy_Software_Engineer_2025.pdf', '_blank')}
+            onClick={() => window.open('https://devaaron7.github.io/aaron-tracy-resume/', '_blank')}
             className="menu-item"
           >
             Meet The Developer
