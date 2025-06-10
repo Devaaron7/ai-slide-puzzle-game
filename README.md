@@ -1,102 +1,42 @@
-# Slide Puzzle Game - React Version
+# AI Slide Puzzle Game
 
-A modern React implementation of the classic slide puzzle game with AI image generation.
+A modern React implementation of the classic slide puzzle game enhanced with AI image generation. Play with beautiful AI-generated images or use your own pictures!
 
-## Features
+[![Live App](https://img.shields.io/badge/Live%20Demo-Play%20Now-success?style=for-the-badge)](https://ai-slide-puzzle-game-production.up.railway.app/)
 
-- Responsive design that works on desktop and mobile devices
-- Clean, modern UI with animations
-- Game timer and move counter
-- Cheat button that appears after a few moves
-- Background music and sound effects
-- Main menu with multiple game options
-- AI image generation using text prompts
-- Custom image loading from URL
+## 🎮 Features
 
-## How to Play
+- **AI-Powered Images**: Generate unique puzzles using AI with just a text prompt
+- **Responsive Design**: Play on any device - desktop, tablet, or mobile
+- **Game Statistics**: Track your moves and completion time
 
-1. Click on any tile adjacent to the empty space to move it
-2. Arrange the tiles in numerical order (1-8) with the empty space in the bottom right
-3. Try to solve the puzzle in as few moves as possible!
+## 🛠 Tech Stack
 
-## Deployment
+### Frontend
+- **React** - UI library
+- **Webpack** - Module bundler
+- **Babel** - JavaScript compiler
+- **CSS3** - Styling with animations
+- **Axios** - HTTP client
 
-### Railway
+### Backend
+- **Node.js** - JavaScript runtime
+- **Express** - Web framework
+- **Railway** - Cloud hosting
+- **Hugging Face** - AI image generation
 
-1. Install the [Railway CLI](https://docs.railway.app/develop/cli):
-   ```bash
-   npm i -g @railway/cli
-   ```
+### Testing
+- **Playwright** - End-to-end testing
 
-2. Link your project to Railway:
-   ```bash
-   railway link
-   ```
-
-3. Set up environment variables in the Railway dashboard:
-   - `PORT`: The port your server should listen on (Railway will provide this)
-   - `NODE_ENV`: Set to `production`
-   - `HF_TOKEN`: Your Hugging Face API token (if using AI image generation)
-
-4. Deploy your application:
-   ```bash
-   railway up
-   ```
-
-## Development
+## 🚀 Getting Started
 
 ### Prerequisites
-
-- Node.js and npm
+- Node.js (v14+)
+- npm or yarn package manager
 
 ### Installation
 
-#### Frontend
-```bash
-npm install
-```
-
-#### Backend
-```bash
-cd server
-npm install
-```
-
-### Running the Development Server
-
-#### Frontend
-```bash
-npm start
-```
-This will start the frontend development server at http://localhost:3000
-
-#### Backend
-```bash
-cd server
-node server.js
-```
-This will start the backend server at http://localhost:5000
-
-### Required Dependencies
-
-The backend server requires:
-- Node.js and npm
-- Chrome WebDriver for Selenium
-- Chrome browser installed
-
-### Building for Production
-
-```bash
-npm run build
-```
-
-This will create a production-ready build in the `dist` directory.
-
-## Technologies Used
-
-- React
-- Webpack
-- Babel
-- CSS3
-
- 
+1. Clone the repository:
+   ```bash
+   git clone [https://github.com/yourusername/slide-puzzle-game.git](https://github.com/yourusername/slide-puzzle-game.git)
+   cd slide-puzzle-game
