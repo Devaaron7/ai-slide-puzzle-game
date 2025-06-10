@@ -2,6 +2,8 @@
 
 A modern React implementation of the classic slide puzzle game enhanced with AI image generation. Play with beautiful AI-generated images or use your own pictures!
 
+https://ai-slide-puzzle-game-production.up.railway.app/
+
 [![Live App](https://img.shields.io/badge/Live%20Demo-Play%20Now-success?style=for-the-badge)](https://ai-slide-puzzle-game-production.up.railway.app/)
 
 ## 🎮 Features
