@@ -11,12 +11,13 @@ const getEnv = (key, defaultValue = '') => {
 const isDevelopment = getEnv('NODE_ENV') !== 'production';
 
 // Set the base URL for API requests
-// Determine environment and set appropriate API base URL
-const isDev = getEnv('NODE_ENV') !== 'production';
-
-// In development, use localhost
-// In production, use the Railway URL or empty string for relative URLs
-const API_BASE_URL = 'https://ai-slide-puzzle-game-production.up.railway.app' 
+// First check for explicit API_URL in environment, then fall back to environment detection
+const API_BASE_URL = getEnv('REACT_APP_API_URL', 
+  // If no explicit API_URL is set, determine based on environment
+  getEnv('NODE_ENV') !== 'production' 
+    ? 'http://localhost:5000' 
+    : 'https://ai-slide-puzzle-game-production.up.railway.app'
+);
 
 // Export API endpoints
 export const API_ENDPOINTS = {

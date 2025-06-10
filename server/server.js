@@ -141,8 +141,8 @@ app.post('/api/send-email', async (req, res) => {
   }
 
   try {
-    // Determine if we're in production or development
-    const appUrl = 'https://ai-slide-puzzle-game-production.up.railway.app' 
+    // Get the API URL from environment or use default production URL
+    const appUrl = process.env.REACT_APP_API_URL || 'https://ai-slide-puzzle-game-production.up.railway.app';
       
     // Prepare template parameters
     const templateParams = {
@@ -164,8 +164,8 @@ app.post('/api/send-email', async (req, res) => {
         template_params: templateParams,
       };
       
-      // Determine the origin and referer based on environment
-      const origin = 'https://ai-slide-puzzle-game-production.up.railway.app' 
+      // Use the same API URL for origin
+      const origin = process.env.REACT_APP_API_URL || 'https://ai-slide-puzzle-game-production.up.railway.app';
       
       try {
         // Send the request to EmailJS API with browser-like headers
